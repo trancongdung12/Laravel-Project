@@ -1,0 +1,11 @@
+.navbar {
+    color: white !important;
+}
+
+.navbar-nav li {
+    margin-left: 50px;
+}
+
+input[type='search'] {
+    width: 300px !important;
+}
