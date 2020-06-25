@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="{{asset('css/home/header.css')}}">
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"><i class="fa fa-cube"></i> DUNGX<b>PHONE</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,11 +8,19 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="#"><i class="fa fa-home"></i> Trang chủ</a>
+              <a class="nav-link" href="/home"><i class="fa fa-home"></i> Trang chủ</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa fa-crosshairs"></i> Loại</a>
+            <li class="nav-item dropmenu">
+              <div class="dropdown">
+                <a class="nav-link dropbtn" href="#"><i class="fa fa-crosshairs"></i> Loại</a>
+                <div class="dropdown-content">
+                    @foreach($categories as $category)
+                    <a onclick="scrollPage({{$category->id}})">{{$category->name}}</a>
+                    @endforeach
+                </div>
+              </div>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa fa-address-card"></i> Về chúng tôi</a>
               </li>
@@ -28,15 +36,25 @@
           </ul>
 
           <ul class="navbar-nav my-2 mt-lg-0">
+              @if(Auth::user())
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i> Giỏ hàng (1)</a>
+                <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng ({{Session::get('countCart')}})</a>
               </li>
             <li class="nav-item dropdown">
-                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><i class="fa fa-user"></i> Trân Công Dũng <b class="caret"></b></a>
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><i class="fa fa-user"></i> {{Auth::user()->name}} <b class="caret"></b></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
+                    <a class="dropdown-item" href="/home/logout"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
                   </div>
             </li>
+            @else
+            <li class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><i class="fa fa-user"></i> Đăng nhập/ Đăng ký <b class="caret"></b></a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/home/login"><i class="fa fa-sign-in-alt"></i> Đăng nhập</a>
+                    <a class="dropdown-item" href="/home/register"><i class="fa fa-sign-out-alt"></i> Đăng ký</a>
+                  </div>
+            </li>
+            @endif
         </ul>
         </div>
 </nav>

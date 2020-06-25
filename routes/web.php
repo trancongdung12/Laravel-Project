@@ -17,12 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('admin/dashboard','Admin\DashboardController@index')->middleware('checklogin');
 
 //Product
-Route::get('product/create','Admin\ProductController@index')->middleware('checklogin');
-Route::get('product/show','Admin\ProductController@show')->middleware('checklogin');
+Route::get('product/create','Admin\ProductController@create')->middleware('checklogin');
+Route::get('product/','Admin\ProductController@index')->middleware('checklogin');
 Route::post('product/store','Admin\ProductController@store');
 Route::delete('product/{id}','Admin\ProductController@destroy');
-Route::get('product/{id}/edit','Admin\ProductController@edit')->middleware('checklogin');;
+Route::get('product/{id}/edit','Admin\ProductController@edit')->middleware('checklogin');
 Route::patch('product/{id}','Admin\ProductController@update');
+//Order Management
+Route::get('admin/order/','Admin\OrderController@index')->middleware('checklogin');
+Route::post('admin/order/{id}/accept','Admin\OrderController@accept');
+
 
 //User
 Route::get('users/show','Admin\UserController@show')->middleware('checklogin');;
@@ -42,9 +46,12 @@ Route::post('/details/cart/{id}','User\CartController@storeCart');
 Route::patch('/cart/{id}','User\CartController@update');
 Route::delete('/cart/{id}','User\CartController@destroy');
 Route::post('/discount/cart/','User\CartController@discount');
+
+//Order
+Route::post('/order','User\OrderController@store');
 //Payment
 Route::get('/payment','User\PaymentController@index');
-Route::post('/payment','User\PaymentController@store');
+
 
 //Login
 Route::get('/home/login','Auth\LoginController@index')->name('auth.login');

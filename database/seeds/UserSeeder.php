@@ -13,8 +13,8 @@ class UserSeeder extends Seeder
     public function run(Faker $faker)
     {
         DB::table('users')->insert([
-            'name' => $faker->name,
-            'username' => $faker->userName,
+            'name' => 'Trần Công Dũng',
+            'username' => 'dungx',
             'password' => Hash::make('123'),
             'role'=> 'user'
         ]);

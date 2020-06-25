@@ -15,9 +15,10 @@ class ProductSeeder extends Seeder
         for($i=0;$i<15;$i++){
             DB::table('products')->insert([
                 'name' =>$faker->lexify('Iphone ???'),
-                'image'=>$faker->imageUrl($width = 640, $height = 480),
+                'image'=>'public/product/product_'.$faker->NumberBetween($min = 1, $max = 7).'.jpeg',
                 'category_id'=>$faker->NumberBetween($min = 1, $max = 4),
-                'quantity'=>$faker->NumberBetween($min = 20, $max = 100)
+                'quantity'=>$faker->NumberBetween($min = 20, $max = 100),
+                'price'=>$faker->NumberBetween($min = 1000000, $max = 10000000)
             ]);
         }
     }

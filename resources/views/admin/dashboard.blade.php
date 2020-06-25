@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layout.adminMaster')
 @section('content')
 <!-- PAGE CONTAINER-->
 <div class="page-container">

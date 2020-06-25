@@ -1,0 +1,89 @@
+.form {
+    margin-bottom: 100px;
+}
+
+.right-form {
+    margin-left: 30px;
+    padding: 0px 30px;
+    border-left: 1px solid #ddd;
+}
+
+.right-form table {
+    width: 400px;
+}
+
+.table tr td {
+    margin-bottom: 50px;
+}
+
+#col-space {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-pay {
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 17px;
+    border: none;
+    font-weight: bold;
+    color: white;
+    background-color: #ff9800;
+}
+
+.discount {
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 17px;
+    padding: 0px 20px;
+}
+
+.btn-primary {
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 17px;
+    border: none;
+    font-weight: bold;
+    background-color: #9e9e9e !important;
+}
+
+.btn-countinue {
+    height: 35px;
+    width: 250px;
+    font-weight: bold;
+    border: 1px solid #c30005;
+    background-color: white;
+    color: #c30005;
+}
+
+.btn-countinue:hover {
+    background-color: #c30005;
+    color: white;
+}
+
+.btn-update-cart {
+    margin-top: 2px;
+    height: 25px;
+    width: 70px;
+    border: none;
+    color: white;
+    background-color: #c30005;
+    opacity: 0.5;
+    font-size: 13px;
+}
+
+.td-cart {
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.td-cart input {
+    font-weight: 100;
+    width: 50px;
+}

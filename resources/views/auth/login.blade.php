@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/home/login.css')}}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Login</title>
 </head>
+<style>
+    .alert{
+        color :red;
+    }
+</style>
 <body>
     <div class="container">
         <div class="row">
@@ -18,13 +23,20 @@
                 <h5 class="card-title text-center">Sign In</h5>
                 <form class="form-signin" action="/home/login" method="post">
                     @csrf
-                <p style="color: red">{{Request::get('error')}}</p>
+                <p class="alert">{{Request::get('error')}}</p>
+                @error('username')
+                <div class="alert">{{$message}}</div>
+                @enderror
                   <div class="form-label-group">
+
                     <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Email address" >
                     <label for="inputEmail">Username</label>
                   </div>
-
+                  @error('password')
+                  <div class="alert">{{$message}}</div>
+                  @enderror
                   <div class="form-label-group">
+
                     <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" >
                     <label for="inputPassword">Password</label>
                   </div>
@@ -35,8 +47,8 @@
                   </div>
                   <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
                   <hr class="my-4">
-                  <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i><a style="color: white" href="home/register"> Sign up</a></button>
-                  <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+                  <a href="/home/register" class="btn btn-lg btn-google btn-block text-uppercase" type="submit">Or Sign up</a>
+                  {{-- <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> --}}
                 </form>
               </div>
             </div>

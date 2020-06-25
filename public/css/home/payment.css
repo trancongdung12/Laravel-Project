@@ -1,0 +1,54 @@
+.header {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.form-item {
+    margin-top: 20px;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-pay {
+    margin-top: 20px;
+    border: none;
+    background-color: #ff9800a1;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-pay:hover {
+    background-color: tomato;
+}
+
+.form-payment {
+    display: flex;
+}
+
+.left-form {
+    padding: 30px 30px;
+}
+
+.right-form {
+    margin-left: 200px;
+    border: 3px solid brown;
+    padding: 30px 30px;
+    width: 450px;
+}
+
+.checkbox {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.space-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-hide {
+    background: none;
+    border: none;
+}

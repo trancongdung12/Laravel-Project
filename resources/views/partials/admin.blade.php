@@ -29,7 +29,7 @@
                                 <i class="fas fa-align-left"></i>Product</a>
                             <ul id="product" style="display: none" class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="/product/show">Show Product</a>
+                                    <a href="/product/">Show Product</a>
                                 </li>
                                 <li>
                                     <a href="/product/create">Add Product</a>
@@ -38,7 +38,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="/admin/dashboard">
+                            <a href="/admin/order">
                                 <i class="fas fa-outdent"></i>Order</a>
                         </li>
                         <li>

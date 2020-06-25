@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoginRequest;
 class LoginController extends Controller
 {
     function index(){
         return view('auth.login');
     }
-    function login(Request $request){
+    function login(LoginRequest $request){
         $username = $request->input('username');
         $password = $request->input('password');
         if(Auth::attempt(['username' => $username, 'password' => $password])){

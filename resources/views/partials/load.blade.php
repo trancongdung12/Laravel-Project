@@ -26,7 +26,7 @@
 </style>
 <div class="preloading">
     <div class="load">
-        <img src="storage/public/loading.gif">
+        <img src="{{asset('storage/public/loading.gif')}}">
     </div>
 </div>
 <script>
