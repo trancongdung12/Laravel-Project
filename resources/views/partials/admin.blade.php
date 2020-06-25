@@ -42,6 +42,10 @@
                                 <i class="fas fa-outdent"></i>Order</a>
                         </li>
                         <li>
+                            <a href="/admin/amount">
+                                <i class="fas fa-outdent"></i>Amount</a>
+                        </li>
+                        <li>
                             <a href="/home/logout">
                                 <i class="fas fa-sign-out-alt"></i>Logout</a>
                         </li>

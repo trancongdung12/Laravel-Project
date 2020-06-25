@@ -16,13 +16,15 @@ class UserSeeder extends Seeder
             'name' => 'Trần Công Dũng',
             'username' => 'dungx',
             'password' => Hash::make('123'),
-            'role'=> 'user'
+            'role'=> 'user',
+            'amount' => 0,
         ]);
         DB::table('users')->insert([
             'name' => $faker->name,
             'username' => 'admin',
             'password' => Hash::make('admin'),
-            'role'=> 'admin'
+            'role'=> 'admin',
+            'amount' => 0,
         ]);
     }
 }

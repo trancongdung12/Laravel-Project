@@ -37,12 +37,15 @@
 
           <ul class="navbar-nav my-2 mt-lg-0">
               @if(Auth::user())
+              <li class="nav-item money">{{number_format(Auth::user()->amount)}} đ</li>
             <li class="nav-item">
                 <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng ({{Session::get('countCart')}})</a>
               </li>
+
             <li class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><i class="fa fa-user"></i> {{Auth::user()->name}} <b class="caret"></b></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal""><i class="fa fa-money"></i> Nạp tiền</a>
                     <a class="dropdown-item" href="/home/logout"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
                   </div>
             </li>

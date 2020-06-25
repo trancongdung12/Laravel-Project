@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 //admin
 Route::get('admin/dashboard','Admin\DashboardController@index')->middleware('checklogin');
 
+//Add Money
+Route::post('/add-money','Admin\DashboardController@addMoney');
+Route::get('/admin/amount','Admin\DashboardController@showAmount');
+Route::post('/admin/amount/{id}/update','Admin\DashboardController@updateAmount');
+
 //Product
 Route::get('product/create','Admin\ProductController@create')->middleware('checklogin');
 Route::get('product/','Admin\ProductController@index')->middleware('checklogin');

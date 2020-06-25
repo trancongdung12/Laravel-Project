@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Session;
 use App\Cart;
 use App\Profile;
 use App\Order;
+use App\User;
 class OrderController extends Controller
 {
     function store(Request $request){
+
+
         $type =$request->type;
         $name = $request->name;
         $address = $request->address;
@@ -29,6 +32,7 @@ class OrderController extends Controller
             $codeDiscount = '';
             $percentDiscount = '';
         }
+
         $carts = Cart::where('user_id',$user_id)->get();
         foreach ($carts as $cart) {
             $cart->products;
@@ -47,19 +51,45 @@ class OrderController extends Controller
             Cart::find($cart->id)->delete();
         }
 
-        $orders = new Order;
-        $orders->user_id = $user_id;
-        $orders->detail = $detail;
-        $orders->total = $total;
-        $orders->code = $codeDiscount;
-        $orders->percent = (float)$percentDiscount;
-        $orders->type = $type;
-        $orders->status = 1;
-        $orders->name = $name;
-        $orders->address = $address;
-        $orders->phone = $phone;
-        $orders->note = $note;
-        $orders->save();
+        if($type=='online'){
+            $amount = Auth::user()->amount;
+            if($amount<$total){
+                return "<script>Số tiền trong tài khoản không đủ để thanh toán</script>";
+            }else{
+            $users = User::find($user_id);
+            $users->amount = $users->amount-$total;
+            $users->save();
+
+            $orders = new Order;
+            $orders->user_id = $user_id;
+            $orders->detail = $detail;
+            $orders->total = $total;
+            $orders->code = $codeDiscount;
+            $orders->percent = (float)$percentDiscount;
+            $orders->type = $type;
+            $orders->status = 1;
+            $orders->name = $name;
+            $orders->address = $address;
+            $orders->phone = $phone;
+            $orders->note = $note;
+            $orders->save();
+            }
+        }else{
+            $orders = new Order;
+            $orders->user_id = $user_id;
+            $orders->detail = $detail;
+            $orders->total = $total;
+            $orders->code = $codeDiscount;
+            $orders->percent = (float)$percentDiscount;
+            $orders->type = $type;
+            $orders->status = 1;
+            $orders->name = $name;
+            $orders->address = $address;
+            $orders->phone = $phone;
+            $orders->note = $note;
+            $orders->save();
+        }
+
 
         $pro = Profile::where('user_id', $user_id)->get();
         if (count($pro)>0) {
