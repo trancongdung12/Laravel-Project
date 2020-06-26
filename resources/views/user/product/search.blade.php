@@ -2,45 +2,70 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('css/home/home.css')}}">
 <style>
-    .btn-option button{
+    .item{
+        display: flex;
+        justify-content: space-between;
+    }
+    .item b{
+        font-size: 30px;
+    }
+    .btn-option{
+        display: flex;
+    }
+    .btn-option a{
+        font-size: 20px;
         border: none;
-        background: red;
-        color: white;
+        margin-left: 15px;
+    }
+    .container{
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    #menu{
+        margin-left: 100px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .item-new{
+        margin-bottom: 50px;
     }
 </style>
 <div class="container">
-    <h2>Tìm kiếm sản phẩm: <<span style="color: red;">
-        {{-- {{$message}} --}}
-    </span>></h2>
-    <p>Sắp xếp sản phẩm</p>
-    <span class="btn-option">
-        <form action="/search/desc" method="post">
-            @csrf
-        <button><i class="fas fa-arrow-up"></i></button>
-        </form>
-        <button><i class="fas fa-arrow-down"></i></button>
-    </span>
+    <div class="item">
+        <div>
+            <b>Tìm kiếm sản phẩm:</b>
+            <span style="color: red;">
+                 <b>< {{Session::get('search')}} ></b>
+            </span>
+        </div>
+        <span class="btn-option">
+            <a href="/search?sort=desc"><i class="fas fa-arrow-up"></i></a>
+            <a href="/search?sort=asc"><i class="fas fa-arrow-down"></i></a>
+        </span>
+    </div>
 
-    {{-- @if(isset($error))
+
+
+    @if(isset($error))
         <h3  style="color: red;margin-bottom: 210px">{{$error}}</h3>
     @else
-    <div id="menu1" style="display: flex">
-        @foreach ($phone as $itemphone)
+    <div id="menu">
+        @foreach ($products as $product)
         <div class="item-new">
-        <form action="/cart/{{$itemphone->id}}" method="post">
-        <a href="/details/{{$itemphone->id}}">
-            <img src="/storage/{{$itemphone->image}}" alt="" height="200px" width="200px">
+        <form action="/cart/{{$product->id}}" method="post">
+        <a href="/details/{{$product->id}}">
+            <img src="/storage/{{$product->image}}" alt="" height="200px" width="200px">
         </a>
-                <p>{{$itemphone->name}}</p>
-                <p><b>{{number_format($itemphone->price)}} đ</b></p>
-                <form action="/cart/{{$itemphone->id}}" method="post">
+                <p>{{$product->name}}</p>
+                <p><b>{{number_format($product->price)}} đ</b></p>
+                <form action="/cart/{{$product->id}}" method="post">
                     @csrf
                 <button class="btn btn-danger">Thêm vào giỏ hàng</button>
                 </form>
         </form>
         </div>
         @endforeach
-        </div>
-    @endif --}}
+    </div>
+    @endif
 </div>
 @endsection

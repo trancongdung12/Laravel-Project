@@ -11,9 +11,18 @@ class ProductController extends Controller
     function create(){
         return view('admin.product.create');
    }
-   function index(){
-       $allproduct = Product::all();
-       return view('admin.product.index',['product'=>$allproduct]);
+   function index(Request $request){
+    $page = $request->page;
+    $allproduct = Product::all()->skip($page * 5)->take(5);
+    if($allproduct->isEmpty()){ //Nếu photo lớn hơn số lượng trong database sẽ trả về 0
+        $allproduct = Product::all()->take(5);
+        return redirect('/product?page=0');
+    }else if($page<0){
+        $totalPage = round(count(Product::all())/5)-1;
+        return redirect('/product?page='.$totalPage);
+    }
+
+    return view('admin.product.index', ['product'=>$allproduct, "page" => $page]);
    }
    function store(Request $request){
        $name = $request->input('name');

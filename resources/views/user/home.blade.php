@@ -101,24 +101,29 @@
         <p class="txt-other" > {{$category->getToupperName()}}</p>
                <hr class="hr-commend">
                <div style="display: flex;margin-left: 50px">
-                @foreach ($getAllProducts as $item)
-                 @if($item->category_id==$category->id)
-                <div class="item-new">
-                <form action="/cart/{{$item->id}}" method="post">
-                <a href="details/{{$item->id}}">
-                    <img src="/storage/{{$item->image}}" alt="" height="200px" width="200px">
-                </a>
-                        <p>{{$item->name}}</p>
-                        <p><b>{{number_format($item->price)}} đ</b></p>
-                        <form action="/cart/{{$item->id}}" method="post">
-                            @csrf
-                        <button class="btn btn-danger">Thêm vào giỏ hàng</button>
+            <?php $i = 0 ?>
+            @foreach ($category->products as $products)
+                    <div class="item-new">
+                        <form action="/cart/{{$products->id}}" method="post">
+                        <a href="details/{{$products->id}}">
+                            <img src="/storage/{{$products->image}}" alt="" height="200px" width="200px">
+                        </a>
+                                <p>{{$products->name}}</p>
+                                <p><b>{{number_format($products->price)}} đ</b></p>
+                                <form action="/cart/{{$products->id}}" method="post">
+                                    @csrf
+                                <button class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                </form>
                         </form>
-                </form>
-                </div>
-             @endif
+                        </div>
+                    <?php $i++ ?>
+                    @if($i==4) @break @endif
+
             @endforeach
-               </div>
+            @if(count($category->products)>4)
+               <a href="/view-more" class="next"><i class="fa fa-chevron-circle-right"></i></a>
+            @endif
+            </div>
         </div>
     </div>
         @endforeach

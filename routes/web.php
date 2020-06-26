@@ -43,6 +43,7 @@ Route::get('/home','User\HomeController@index')->name('user.home');
 Route::get('/details/{id}','User\HomeController@details');
 //Search
  Route::get('/search','User\SearchController@index')->name('user.search');
+
 // Route::post('/search/{txt}','User\SearchController@index');
 //Cart
 Route::get('/cart','User\CartController@index')->name('user.cart');

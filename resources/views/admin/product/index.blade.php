@@ -15,10 +15,9 @@
               </tr>
             </thead>
             <tbody>
-                <?php $i=1; ?>
                 @foreach ($product as $item)
               <tr>
-                <th scope="row"><?php echo $i++; ?></th>
+                <th scope="row">{{$item->id}}</th>
                 <td>{{$item->name}}</td>
                 <td>{{number_format($item->price)}}</td>
                 <td><img src="/storage/{{$item->image}}" alt="" height="50px" width="50px"></td>
@@ -38,6 +37,8 @@
               @endforeach
             </tbody>
         </table>
+        <a href="/product?page={{$page-1}}">Previous</a>
+        <a href="/product?page={{$page+1}}">Next</a>
     </div>
     </div>
 @endsection

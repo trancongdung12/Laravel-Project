@@ -1,0 +1,86 @@
+.container-form {
+    /* margin-left: 100px; */
+    margin-top: 100px;
+    display: flex;
+}
+
+
+/* .container-right {
+    margin-top: 70px;
+} */
+
+.container-right p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.container-right hr {
+    border: 1px solid red;
+}
+
+.container-right .btn {
+    border-radius: 0px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 3px;
+    margin-left: 5px;
+    margin-top: -2px;
+}
+
+.tableparameter {
+    margin-top: 30px;
+}
+
+.tableparameter li {
+    margin-top: 10px;
+}
+
+#other .hr-commend {
+    border: 1px solid black;
+}
+
+
+/* Item sản phẩm mới */
+
+.item-new {
+    padding: 20px;
+    width: 250px;
+    height: 300px;
+}
+
+.item-new p,
+.item-new b {
+    text-align: center;
+}
+
+.item-new .btn {
+    padding: 2px 2px;
+    margin-left: 45px;
+    border-radius: 0px;
+}
+
+#other {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+#other .txt-other {
+    margin-left: 45%;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.item-comment {
+    margin-left: 10%;
+    width: 84%;
+}
+
+.id-item {
+    width: 20%;
+}
+
+.last-item textarea {
+    outline: none;
+    height: 100px;
+    width: 100% !important;
+}

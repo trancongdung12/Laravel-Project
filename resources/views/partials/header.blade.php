@@ -29,7 +29,7 @@
               </li>
             <li>
                 <form class="form-inline my-2 my-lg-0" action="/search">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm ....">
+                    <input class="form-control mr-sm-2" name="txtsearch" type="search" placeholder="Tìm kiếm ....">
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
                   </form>
             </li>
@@ -45,7 +45,7 @@
             <li class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><i class="fa fa-user"></i> {{Auth::user()->name}} <b class="caret"></b></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal""><i class="fa fa-money"></i> Nạp tiền</a>
+                    <a class="dropdown-item" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal""><i class="fas fa-address-card"></i></i> Nạp tiền</a>
                     <a class="dropdown-item" href="/home/logout"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
                   </div>
             </li>

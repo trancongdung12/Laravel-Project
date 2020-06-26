@@ -1,9 +1,13 @@
+body {
+    background-color: white !important;
+}
+
 .navbar {
     color: white !important;
 }
 
 .navbar-nav li {
-    margin-left: 50px;
+    margin-left: 20px;
 }
 
 input[type='search'] {

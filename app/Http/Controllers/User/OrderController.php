@@ -40,7 +40,7 @@ class OrderController extends Controller
         foreach ($carts as $cart) {
            foreach ($cart->products as $product) {
             $arrayProduct[] = array(
-            'id'=>$product->id,
+            'name'=>$product->name,
             'price'=>$product->price,
             'quantity'=>$cart->quantity
                 );

@@ -86,7 +86,7 @@
                                     <td>{{$item->address}}</td>
                                     <td>{{$item->phone}}</td>
                                     <td>{{$item->note}}</td>
-                                    <td>{{$product->id}}</td>
+                                    <td>{{$product->name}}</td>
                                     <td>{{$product->quantity}}</td>
                                     <td>{{number_format($product->price)}} đ</td>
                                     <td>{{$item->code}}</td>

@@ -3,6 +3,12 @@
     width: 100%;
 }
 
+.next .fa-chevron-circle-right {
+    position: relative;
+    top: 120px;
+    font-size: 35px;
+}
+
 
 /*********************** Demo - 8 *******************/
 
