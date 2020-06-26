@@ -28,6 +28,7 @@ Route::post('product/store','Admin\ProductController@store');
 Route::delete('product/{id}','Admin\ProductController@destroy');
 Route::get('product/{id}/edit','Admin\ProductController@edit')->middleware('checklogin');
 Route::patch('product/{id}','Admin\ProductController@update');
+
 //Order Management
 Route::get('admin/order/','Admin\OrderController@index')->middleware('checklogin');
 Route::post('admin/order/{id}/accept','Admin\OrderController@accept');
@@ -40,11 +41,14 @@ Route::delete('users/{id}','Admin\UserController@destroy');
 //Home
 Route::get('/','User\HomeController@index');
 Route::get('/home','User\HomeController@index')->name('user.home');
+
+//Detail
 Route::get('/details/{id}','User\HomeController@details');
+Route::post('/add-comment','User\HomeController@addComment');
+
 //Search
  Route::get('/search','User\SearchController@index')->name('user.search');
 
-// Route::post('/search/{txt}','User\SearchController@index');
 //Cart
 Route::get('/cart','User\CartController@index')->name('user.cart');
 Route::post('/cart/{id}','User\CartController@store');
@@ -55,6 +59,7 @@ Route::post('/discount/cart/','User\CartController@discount');
 
 //Order
 Route::post('/order','User\OrderController@store');
+
 //Payment
 Route::get('/payment','User\PaymentController@index');
 

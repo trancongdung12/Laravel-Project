@@ -71,12 +71,19 @@
 }
 
 .item-comment {
+    overflow-y: auto;
+    height: 300px;
     margin-left: 10%;
     width: 84%;
 }
 
 .id-item {
     width: 20%;
+}
+
+.last-item {
+    margin-left: 10%;
+    width: 84%;
 }
 
 .last-item textarea {

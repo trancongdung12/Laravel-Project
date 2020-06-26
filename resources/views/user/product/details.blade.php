@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('content')
 <link rel="stylesheet" href="{{asset('css/home/details.css')}}">
-<div class="container">
+<div class="container" onload="changeHeight()">
     <div class="container-form">
         <div class="container-left">
         <img src="/storage/{{$product->image}}" alt="" height="500px" width="500px">
@@ -50,31 +50,41 @@
     </div>
 </div>
 <div class="container">
-    <div class="item-comment">
+    <div class="item-comment" id="comment">
         <table class="table">
             <thead class="thead-dark">
               <tr>
                 <th class="id-item" scope="col">#</th>
+                <th class="id-item" scope="col">Tài khoản</th>
                 <th scope="col">Nội dung</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th  scope="row">1</th>
-                <td>Mark</td>
-              </tr>
-              <tr class="last-item">
-                <form action="/add-comment" method="post">
-                    <input type="text" hidden value="{{$product->product_id}}">
-                    @if(Auth::user())
-                    <td><button type="submit" class="btn btn-warning">Thêm bình luận</button></td>
-                    <td><textarea name="content" id="" cols="30" rows="3"></textarea></td>
-                    @endif
-                </form>
+                <?php $i=0; ?>
+                <div class="item-scroll">
+                    @foreach($comments as $comment)
+                <tr>
+                <th  scope="row">{{++$i}}</th>
+                <th>{{$comment->users->name}}</th>
+                <td>{{$comment->content}}</td>
+                </tr>
+                    @endforeach
+              </div>
 
-              </tr>
+
             </tbody>
         </table>
+    </div>
+    <div class="last-item">
+        <form action="/add-comment" method="post">
+            @csrf
+            <input type="text" name="product_id" hidden value="{{$detail->product_id}}">
+            @if(Auth::user())
+            <td><textarea name="content" id="" cols="30" rows="3"></textarea></td>
+            <td><button type="submit" class="btn btn-warning">Thêm bình luận</button></td>
+            @endif
+        </form>
+
     </div>
 </div>
 <div class="container" id="other">
@@ -92,4 +102,11 @@
     </div>
 
 </div>
+<script>
+    function changeHeight(){
+        var elm = document.getElementById('comment');
+
+        alert('parLeft');
+    }
+</script>
 @endsection

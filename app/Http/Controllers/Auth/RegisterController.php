@@ -17,7 +17,7 @@ class RegisterController extends Controller
         $name = $request->input('name');
         $username = $request->input('username');
         $password = $request->input('password');
-        DB::table('users')->insert(['name'=>$name,'username'=>$username,'password'=>Hash::make($password),'role'=>'user']);
+        DB::table('users')->insert(['name'=>$name,'username'=>$username,'password'=>Hash::make($password),'role'=>'user','amount'=>0]);
         return redirect('/home/login');
     }
 }
