@@ -51,6 +51,63 @@
             </div>
             </div>
         </div>
+        @if(Auth::user())
+        <!-- Model -->
+        <div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lịch sử mua hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body" style="overflow-y: auto;height: 300px;">
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Payment</th>
+                            <th scope="col">Total</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($orders as $order)
+
+                          <tr>
+                            <td>{{$order->name}}</td>
+                            <td>{{$order->address}}</td>
+                            <td>{{$order->phone}}</td>
+                            <td>{{$order->note}}</td>
+                            <td>
+                                @foreach(json_decode($order->detail) as $products)
+                                {{' | '.$products->name.', giá: '.number_format($products->price).' đ , số lượng '.$products->quantity.' | '}}
+                                @endforeach
+                            </td>
+                            <td>{{$order->code}}</td>
+                            <td>{{$order->percent*100}}%</td>
+                            <td>{{$order->type}}</td>
+                            <td>{{$order->total}}</td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        @endif
         <div class="container" id="recommend">
 
         <ul id="menu">

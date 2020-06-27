@@ -7,10 +7,13 @@
         <form action="/product/store" method="post" enctype="multipart/form-data" style="padding: 0px 40px;display:flex">
             @csrf
             <div class="form-left">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Slug</label>
+                    <input type="text" style="width: 300px" name="slug" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Slug">
+                  </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Tên sản phẩm</label>
               <input type="text" style="width: 300px" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
-
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Giá</label>

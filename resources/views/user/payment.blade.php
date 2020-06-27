@@ -1,7 +1,8 @@
 @extends('layout.master')
 @section('content')
     <link rel="stylesheet" href="{{asset('css/home/payment.css')}}">
-    <div class="container" style="margin-top: 100px">
+    <div class="container">
+            <p style="color: red;font-weight: bold">{{Request::get('error')}}</p>
            <form class="form-payment" action="/order" method="post">
             @csrf
                <div class="left-form">
@@ -31,6 +32,7 @@
                         <b>SẢN PHẨM</b> <b>TỔNG</b>
                 </div>
                 <hr>
+                   <?php $total = 0 ?>
                     @foreach ($carts as $cart)
                         @foreach ($cart->products as $product)
                     <div class="space-row">
@@ -44,15 +46,22 @@
                             {{$cart->getFormatedNumber($cart->quantity*$product->price)}}
                         </b>
                     </div>
+                    <?php $total += $cart->quantity*$product->price?>
                      @endforeach
                      @endforeach
 
                 <hr>
                 <div class="space-row">
                     <b>Tổng phụ</b> <b>
-                        {{number_format(Session::get('total'))}} đ
+                        {{number_format($total)}} đ
                     </b>
                </div>
+               <hr>
+               @if(Session::get('discount'))
+                    <div class="space-row">
+                       <span style="font-weight: bold">Giảm giá</span> <b style="color: red">{{number_format($discount=$total*Session::get('percent'))}} đ</b>
+                    </div>
+                @endif
                <hr>
                <div class="space-row">
                 <b>Giao hàng</b> <span>Giao hàng miễn phí</span>
@@ -66,7 +75,7 @@
                 <hr>
 
                 <div class="checkbox">
-                    Hình thức thoanh toán
+                    <b>Hình thức thoanh toán</b>
                     <select name="type" id="">
                         <option value="money" checked>Trả tiền khi nhận hàng</option>
                         <option value="online">Thanh toán online 21APAY</option>

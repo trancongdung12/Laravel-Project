@@ -37,13 +37,26 @@
 
                             </ul>
                         </li>
+                        <li >
+                            <a class="js-arrow" href="#" onclick="showcate()">
+                                <i class="fas fa-align-right"></i>Category</a>
+                            <ul id="category" style="display: none" class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="/product/">Show Category</a>
+                                </li>
+                                <li>
+                                    <a href="/product/create">Add Category</a>
+                                </li>
+
+                            </ul>
+                        </li>
                         <li>
                             <a href="/admin/order">
-                                <i class="fas fa-outdent"></i>Order</a>
+                                <i class="fas fa-address-card"></i>Order</a>
                         </li>
                         <li>
                             <a href="/admin/amount">
-                                <i class="fas fa-outdent"></i>Amount</a>
+                                <i class="fas fa-credit-card"></i>Amount</a>
                         </li>
                         <li>
                             <a href="/home/logout">
@@ -85,6 +98,10 @@
 <script>
         function shownd(){
         var txt = document.getElementById('product');
+        txt.style.display = 'block';
+}
+function showcate(){
+        var txt = document.getElementById('category');
         txt.style.display = 'block';
 }
 </script>

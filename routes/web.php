@@ -61,7 +61,7 @@ Route::post('/discount/cart/','User\CartController@discount');
 Route::post('/order','User\OrderController@store');
 
 //Payment
-Route::get('/payment','User\PaymentController@index');
+Route::get('/payment','User\PaymentController@index')->name('user.payment');
 
 
 //Login
@@ -74,3 +74,9 @@ Route::post('/home/register','Auth\RegisterController@register');
 
 //Logout
 Route::get('/home/logout','Auth\LogoutController@logout');
+
+//Error
+Route::get('/404', function () {
+    return abort(404);
+});
+

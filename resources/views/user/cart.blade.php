@@ -73,8 +73,9 @@
                               <thead>
                                 @if(Session::get('discount'))
                                 <tr>
-                                    <th  style="color:red"  id="col-space" scope="col"><span>Giảm giá</span> <b>{{number_format($total=$total*Session::get('percent'))}} đ</b></th>
+                                    <th  style="color:red"  id="col-space" scope="col"><span>Giảm giá</span> <b>{{number_format($discount=$total*Session::get('percent'))}} đ</b></th>
                                 </tr>
+                                {{Session::put('total',Session::get('total')-$discount)}}
                                 @endif
                                 <tr>
                                   <th  id="col-space" scope="col"><span>Tổng</span> <b>{{number_format(Session::get('total'))}} đ</b></th>

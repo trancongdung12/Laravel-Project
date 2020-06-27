@@ -12,27 +12,34 @@ use App\Product;
 use App\Cart;
 use App\Comment;
 use App\DescriptionProduct;
-
+use App\Order;
 class HomeController extends Controller
 {
     function index(){
         $getAllProduct = Product::all();
         $product = Product::all()->take(4);
         $category = Category::all();
+
         foreach($category as $item){
             $item->products;
         }
          //echo "<pre>".json_encode($category,JSON_PRETTY_PRINT)."</pre>";
         $hotphone = Product::all()->take(3);
         if(Auth::user()){
-            $carts = Cart::where('user_id',Auth::user()->id)->get();
+            $id_user = Auth::user()->id;
+            $order = Order::where('user_id',$id_user)->get();
+            $carts = Cart::where('user_id',$id_user)->get();
             $count = 0;
             foreach ( $carts as $cart) {
                $count += $cart->quantity;
             }
             Session::put('countCart', $count);
+            return view('user.home',['orders'=>$order,'product'=>$product,'hotphone'=>$hotphone,'categories'=>$category,'getAllProducts'=>$getAllProduct]);
+
+        }else{
+            return view('user.home',['product'=>$product,'hotphone'=>$hotphone,'categories'=>$category,'getAllProducts'=>$getAllProduct]);
+
         }
-        return view('user.home',['product'=>$product,'hotphone'=>$hotphone,'categories'=>$category,'getAllProducts'=>$getAllProduct]);
     }
     function details($id){
         $category = Category::all();

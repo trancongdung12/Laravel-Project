@@ -54,3 +54,7 @@ input[type='search'] {
     color: #ffc107;
     font-weight: bold;
 }
+
+#dropmenu {
+    margin-left: -100px;
+}

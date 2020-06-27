@@ -47,15 +47,15 @@ class OrderController extends Controller
            }
         }
         $detail = json_encode($arrayProduct);
-        foreach ($carts as $cart) {
-            Cart::find($cart->id)->delete();
-        }
 
         if($type=='online'){
             $amount = Auth::user()->amount;
             if($amount<$total){
-                return "<script>Số tiền trong tài khoản không đủ để thanh toán</script>";
+                return redirect()->route('user.payment',['error'=>'Số tiền trong tài khoản của bạn không đủ! Vui lòng nạp thêm tiền']);
             }else{
+            foreach ($carts as $cart) {
+                Cart::find($cart->id)->delete();
+            }
             $users = User::find($user_id);
             $users->amount = $users->amount-$total;
             $users->save();
@@ -75,6 +75,9 @@ class OrderController extends Controller
             $orders->save();
             }
         }else{
+            foreach ($carts as $cart) {
+                Cart::find($cart->id)->delete();
+            }
             $orders = new Order;
             $orders->user_id = $user_id;
             $orders->detail = $detail;

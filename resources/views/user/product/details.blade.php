@@ -1,10 +1,10 @@
 @extends('layout.master')
 @section('content')
 <link rel="stylesheet" href="{{asset('css/home/details.css')}}">
-<div class="container" onload="changeHeight()">
+<div class="container" style="margin-bottom: 50px">
     <div class="container-form">
         <div class="container-left">
-        <img src="/storage/{{$product->image}}" alt="" height="500px" width="500px">
+        <img src="/storage/{{$product->image}}" alt="" height="500px" width="450px">
         </div>
         <div  class="container-right">
                 <p>{{$product->name}}</p>
@@ -17,6 +17,9 @@
                             @csrf
                         <button class="btn btn-danger">Thêm vào giỏ hàng</button>
                          </form>
+                    </div>
+                    <div class="item-star">
+                        <img src="/storage/public/star/five.png" alt="" width="150px">
                     </div>
                 </div>
                 <div class="tableparameter">
@@ -70,8 +73,6 @@
                 </tr>
                     @endforeach
               </div>
-
-
             </tbody>
         </table>
     </div>
@@ -102,11 +103,5 @@
     </div>
 
 </div>
-<script>
-    function changeHeight(){
-        var elm = document.getElementById('comment');
 
-        alert('parLeft');
-    }
-</script>
 @endsection

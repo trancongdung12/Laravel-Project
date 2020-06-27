@@ -16,10 +16,11 @@ class CheckLoginRole
     public function handle($request, Closure $next)
     {
         if(!Auth::check()){
-            return redirect()->route('auth.login',['error'=>'Bạn phải đăng nhập']);
+            // return redirect()->route('auth.login',['error'=>'Bạn phải đăng nhập']);
+            abort(403);
         }
         else if(Auth::user()->role!='admin'){
-            return redirect()->route('auth.login',['error'=>'Bạn phải đăng nhập admin']);
+            abort(401);
         }
         return $next($request);
     }
