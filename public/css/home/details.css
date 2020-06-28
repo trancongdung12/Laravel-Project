@@ -95,3 +95,25 @@
 .item-star {
     margin-top: 10px;
 }
+
+.checked {
+    color: orange;
+}
+
+.form-group .fa-star {
+    font-size: 25px;
+}
+
+.modal-dialog .form-group {
+    margin-left: 50px;
+}
+
+.modal-dialog {
+    width: 300px !important;
+}
+
+.btn-none {
+    background: none;
+    border: none;
+    outline: none;
+}

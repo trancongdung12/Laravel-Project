@@ -185,27 +185,6 @@
     </div>
         @endforeach
         </div>
-        <script>
-            function item(id){
-                if(id==2){
-                    document.getElementById('menu2').style.display = "flex";
-                    document.getElementById('menu1').style.display = 'none';
-                    document.getElementById("item1").className = "none";
-                    document.getElementById("item2").className = "active";
-                }
-                if(id==1){
-                    document.getElementById('menu1').style.display = "flex";
-                    document.getElementById('menu2').style.display = 'none';
-                    document.getElementById("item2").className = "none";
-                    document.getElementById("item1").className = "active";
-
-                }
-
-            }
-            function scrollPage(id) {
-              var item =   document.getElementById("scrollID"+id);
-              window.scrollTo(item.offsetLeft,item.offsetTop-100);
-            }
-        </script>
+    <script src="{{asset('js/home.js')}}"> </script>
 </body>
 @endsection

@@ -45,6 +45,9 @@ Route::get('/home','User\HomeController@index')->name('user.home');
 //Detail
 Route::get('/details/{id}','User\HomeController@details');
 Route::post('/add-comment','User\HomeController@addComment');
+Route::get('/rate-star-{quantity}/{id}','User\HomeController@rate');
+
+
 
 //Search
  Route::get('/search','User\SearchController@index')->name('user.search');

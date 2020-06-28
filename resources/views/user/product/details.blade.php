@@ -12,14 +12,48 @@
                 <p>{{number_format($product->price)}} đ</p>
                 <div>
                     <div style="display: flex">
-                        <form action="/details/cart/{{$product->product_id}}" method="post">
+                        <form action="/details/cart/{{$product->id}}" method="post">
                         <input type="number" name="qty-cart" min="1" max="{{$product->quantity}}" value="1">
                             @csrf
                         <button class="btn btn-danger">Thêm vào giỏ hàng</button>
                          </form>
                     </div>
                     <div class="item-star">
-                        <img src="/storage/public/star/five.png" alt="" width="150px">
+                        <img src="/storage/public/star/five.png" alt="" width="150px">{{"(".$rates[1].")"}}
+
+                    </div>
+                    @if(Auth::user())
+                        @if($checkRated == 1)
+                        <button class="btn btn-warning" >Bạn đã đánh giá sản phẩm</button>
+                        @else
+                        <button class="btn btn-purpel" data-toggle="modal" data-target="#exampleModal">Đánh giá sản phẩm</button>
+                        @endif
+                    @else
+                        <button class="btn btn-purpel" onclick="alert('Bạn phải đăng nhập trước khi đánh giá')">Đánh giá sản phẩm</button>
+                    @endif
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Đánh giá sản phẩm</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <a type="submit" href="/rate-star-1/{{$product->id}}" class="btn-none"><span id="star-1" class="fa fa-star" onmouseover="rate(1)"></span></a>
+                                <a  type="submit" href="/rate-star-2/{{$product->id}}"  class="btn-none"><span id="star-2" class="fa fa-star" onmouseover="rate(2)"></span></a>
+                                <a  type="submit" href="/rate-star-3/{{$product->id}}"  class="btn-none"><span id="star-3" class="fa fa-star" onmouseover="rate(3)"></span></a>
+                                <a  type="submit" href="/rate-star-4/{{$product->id}}"  class="btn-none"><span id="star-4" class="fa fa-star" onmouseover="rate(4)"></span></a>
+                                <a type="submit" href="/rate-star-5/{{$product->id}}"  class="btn-none"><span id="star-5" class="fa fa-star" onmouseover="rate(5)"></span></a>
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="tableparameter">
@@ -101,7 +135,7 @@
          </div>
          @endforeach
     </div>
-
+    <script src="{{asset('js/home.js')}}"> </script>
 </div>
 
 @endsection
