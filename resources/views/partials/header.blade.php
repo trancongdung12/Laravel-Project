@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{asset('css/home/header.css')}}">
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"><i class="fa fa-cube"></i> DUNGX<b>PHONE</b></a>
+        <a class="navbar-brand" href="/home"><i class="fa fa-cube"></i> DUNGX<b>PHONE</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

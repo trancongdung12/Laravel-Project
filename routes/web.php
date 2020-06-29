@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//admin
+//Admin
 Route::get('admin/dashboard','Admin\DashboardController@index')->middleware('checklogin');
-
+//Ship
+Route::get('admin/ship','Admin\ShipperController@index');
+Route::post('admin/{id}/shipped','Admin\ShipperController@shipped');
 //Add Money
 Route::post('/add-money','Admin\DashboardController@addMoney');
 Route::get('/admin/amount','Admin\DashboardController@showAmount');
@@ -35,7 +37,7 @@ Route::post('admin/order/{id}/accept','Admin\OrderController@accept');
 
 
 //User
-Route::get('users/show','Admin\UserController@show')->middleware('checklogin');;
+Route::get('users/show','Admin\UserController@show')->middleware('checklogin');
 Route::delete('users/{id}','Admin\UserController@destroy');
 
 //Home
@@ -43,9 +45,9 @@ Route::get('/','User\HomeController@index');
 Route::get('/home','User\HomeController@index')->name('user.home');
 
 //Detail
-Route::get('/details/{id}','User\HomeController@details');
+Route::get('/details/{slug}_{id}','User\HomeController@details');
 Route::post('/add-comment','User\HomeController@addComment');
-Route::get('/rate-star-{quantity}/{id}','User\HomeController@rate');
+Route::get('/rate-star-{quantity}/{slug}_{id}','User\HomeController@rate');
 
 
 

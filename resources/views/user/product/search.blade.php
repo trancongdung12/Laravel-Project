@@ -1,35 +1,8 @@
 @extends('layout.master')
+@section('title', 'Tìm Kiếm')
 @section('content')
-<link rel="stylesheet" href="{{asset('css/home/home.css')}}">
-<style>
-    .item{
-        display: flex;
-        justify-content: space-between;
-    }
-    .item b{
-        font-size: 30px;
-    }
-    .btn-option{
-        display: flex;
-    }
-    .btn-option a{
-        font-size: 20px;
-        border: none;
-        margin-left: 15px;
-    }
-    .container{
-        margin-top: 100px;
-        margin-bottom: 100px;
-    }
-    #menu{
-        margin-left: 100px;
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .item-new{
-        margin-bottom: 50px;
-    }
-</style>
+<link rel="stylesheet" href="{{asset('css/home/search.css')}}">
+
 <div class="container">
     <div class="item">
         <div>

@@ -1,9 +1,10 @@
 @extends('layout.master')
+@section('title', 'Giỏ Hàng')
 @section('content')
 <link rel="stylesheet" href="{{asset('css/home/cart.css')}}">
         <div class="container" style="margin-top: 100px">
                 <p style="color: red">{{Request::get('message')}}</p>
-                <div class="form" style="display: flex">
+                <div class="form">
 
                     <div class="left-form">
                         <table class="table">

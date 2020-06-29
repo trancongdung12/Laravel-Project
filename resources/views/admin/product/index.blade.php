@@ -1,4 +1,5 @@
 @extends('layout.adminMaster')
+@section('title', 'Product')
 @section('content')
 <div class="page-container" style="margin-top: 15px">
     <div class="container" style="background-color: white">

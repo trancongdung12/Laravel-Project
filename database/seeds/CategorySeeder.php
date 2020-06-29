@@ -12,7 +12,7 @@ class CategorySeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $categories = ['Điện thoại','Tai Nghe','Củ sạc','Thẻ nhớ'];
+        $categories = ['Điện thoại','Tai nghe','Đồng hồ','Củ sạc'];
         for($i=0;$i<4;$i++){
             DB::table('categories')->insert([
                 'name' =>$categories[$i]

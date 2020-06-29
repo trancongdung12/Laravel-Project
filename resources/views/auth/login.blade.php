@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/home/login.css')}}">
 
-    <title>Login</title>
+    <title>Đăng Nhập</title>
 </head>
 <style>
     .alert{

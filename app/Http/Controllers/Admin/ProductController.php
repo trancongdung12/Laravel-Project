@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Category;
 use App\Product;
+use App\DescriptionProduct;
+use App\Http\Requests\EditProductRequest;
 class ProductController extends Controller
 {
     function create(){
-        return view('admin.product.create');
+        $category = Category::all();
+        return view('admin.product.create',['categories'=>$category]);
    }
    function index(Request $request){
     $page = $request->page;
@@ -24,17 +28,29 @@ class ProductController extends Controller
 
     return view('admin.product.index', ['product'=>$allproduct, "page" => $page]);
    }
-   function store(Request $request){
+   function store(EditProductRequest $request){
        $name = $request->input('name');
+       $slug = $request->input('slug');
        $price = $request->input('price');
-       $image = $request->file('image')->store('public');
+       $image = $request->file('image')->store('public/product');
        $category = $request->input('category');
        $quantity = $request->input('quantity');
-       $detail = $request->input('screen').'//'.$request->input('system').'//'.$request->input('backcam').'//'.$request->input('frontcam')
-       .'//'.$request->input('cpu').'//'.$request->input('ram').'//'.$request->input('store').'//'.$request->input('sim').'//'.$request->input('pin');
-       echo $detail;
-       DB::table('product')->insert(['name'=>$name,'price'=>$price,'image'=>$image,'quantity'=>$quantity,'category'=>$category,'detail'=>$detail]);
-       return redirect('/product/');
+       $detail =  $request->description;
+
+       $products = new Product();
+       $products->name = $name;
+       $products->slug = $slug;
+       $products->price = $price;
+       $products->image= $image;
+       $products->category_id = $category;
+       $products->quantity = $quantity;
+       $products->save();
+
+       $desc = new DescriptionProduct();
+       $desc->product_id = $products->id;
+       $desc->content = $detail;
+       $desc->save();
+        return redirect('/product/');
    }
    function destroy($id){
        Product::find($id)->delete();

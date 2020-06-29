@@ -1,4 +1,5 @@
 @extends('layout.adminMaster')
+@section('title', 'Order')
 @section('content')
 <div class="page-container" style="margin-top: 15px;">
     <div class="container" style="background-color: white;height: 800px">
@@ -27,7 +28,9 @@
                     @if($item->status == 1)
                     <button class="btn btn-danger">Processing</button>
                     @elseif($item->status == 2)
-                    <button class="btn btn-success">Shipping</button>
+                    <button class="btn btn-primary">Shipping</button>
+                    @elseif($item->status == 3)
+                    <button class="btn btn-success">Shipped</button>
                     @endif
                 </td>
                 <td style="display: flex">

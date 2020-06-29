@@ -1,4 +1,5 @@
 @extends('layout.master')
+@section('title', 'Chi Tiết')
 @section('content')
 <link rel="stylesheet" href="{{asset('css/home/details.css')}}">
 <div class="container" style="margin-bottom: 50px">
@@ -19,7 +20,9 @@
                          </form>
                     </div>
                     <div class="item-star">
-                        <img src="/storage/public/star/five.png" alt="" width="150px">{{"(".$rates[1].")"}}
+
+                        <img src="/storage/public/star/{{$rates[0]}}.png" alt="" width="150px">
+                        {{"(".$rates[1]." đánh giá) "}}
 
                     </div>
                     @if(Auth::user())
@@ -44,11 +47,11 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <a type="submit" href="/rate-star-1/{{$product->id}}" class="btn-none"><span id="star-1" class="fa fa-star" onmouseover="rate(1)"></span></a>
-                                <a  type="submit" href="/rate-star-2/{{$product->id}}"  class="btn-none"><span id="star-2" class="fa fa-star" onmouseover="rate(2)"></span></a>
-                                <a  type="submit" href="/rate-star-3/{{$product->id}}"  class="btn-none"><span id="star-3" class="fa fa-star" onmouseover="rate(3)"></span></a>
-                                <a  type="submit" href="/rate-star-4/{{$product->id}}"  class="btn-none"><span id="star-4" class="fa fa-star" onmouseover="rate(4)"></span></a>
-                                <a type="submit" href="/rate-star-5/{{$product->id}}"  class="btn-none"><span id="star-5" class="fa fa-star" onmouseover="rate(5)"></span></a>
+                                <a type="submit" href="/rate-star-1/{{$product->slug.'_'}}{{$product->id}}" class="btn-none"><span id="star-1" class="fa fa-star" onmouseover="rate(1)"></span></a>
+                                <a  type="submit" href="/rate-star-2/{{$product->slug.'_'}}{{$product->id}}"  class="btn-none"><span id="star-2" class="fa fa-star" onmouseover="rate(2)"></span></a>
+                                <a  type="submit" href="/rate-star-3/{{$product->slug.'_'}}{{$product->id}}"  class="btn-none"><span id="star-3" class="fa fa-star" onmouseover="rate(3)"></span></a>
+                                <a  type="submit" href="/rate-star-4/{{$product->slug.'_'}}{{$product->id}}"  class="btn-none"><span id="star-4" class="fa fa-star" onmouseover="rate(4)"></span></a>
+                                <a type="submit" href="/rate-star-5/{{$product->slug.'_'}}{{$product->id}}"  class="btn-none"><span id="star-5" class="fa fa-star" onmouseover="rate(5)"></span></a>
                             </div>
                             </div>
                             <div class="modal-footer">
@@ -61,22 +64,7 @@
 
                     <p>Thông số kỹ thuật</p>
                     <ul class="parameter">
-                    {{-- @if($product->category=='phone') --}}
-                        <li><b>Màn hình:</b><span>{{$detail->content}}</span></li>
-                        {{-- <li><b>Hệ điều hành:</b><span>{{$detail[1]}}</span></li>
-                        <li><b>Camera sau:</b><span>{{$detail[2]}}</span></li>
-                        <li><b>Camera trước:</b><span>{{$detail[3]}}</span></li>
-                        <li><b>CPU:</b><span>{{$detail[4]}}</span></li>
-                        <li><b>RAM:</b><span>{{$detail[5]}}</span></li>
-                        <li><b>Bộ nhớ trong:</b><span>{{$detail[6]}}</span></li>
-                        <li><b>Thẻ SIM:</b><span>{{$detail[7]}}</span></li>
-                        <li><b>Dung lượng pin:</b><span>{{$detail[8]}}</span></li> --}}
-                    {{-- @else
-                        <li><b>Kích thước:</b><span>{{$detail[0]}}</span></li>
-                        <li><b>trọng lượng:</b><span>{{$detail[1]}}</span></li>
-                        <li><b>Pin:</b><span>{{$detail[2]}}</span></li>
-                        <li><b>Tính năng khác:</b><span>{{$detail[3]}}</span></li>
-                    @endif --}}
+                        <li><span>{{$detail->content}}</span></li>
                     </ul>
 
 
@@ -86,7 +74,7 @@
 
     </div>
 </div>
-<div class="container">
+<div class="container" id="cotainer-comment">
     <div class="item-comment" id="comment">
         <table class="table">
             <thead class="thead-dark">
@@ -113,7 +101,8 @@
     <div class="last-item">
         <form action="/add-comment" method="post">
             @csrf
-            <input type="text" name="product_id" hidden value="{{$detail->product_id}}">
+            <input type="text" name="product_id" hidden value="{{$product->id}}">
+            <input type="text" name="slug" hidden value="{{$product->slug}}">
             @if(Auth::user())
             <td><textarea name="content" id="" cols="30" rows="3"></textarea></td>
             <td><button type="submit" class="btn btn-warning">Thêm bình luận</button></td>
@@ -125,15 +114,44 @@
 <div class="container" id="other">
     <p class="txt-other"> SẢN PHẨM TƯƠNG TỰ</p>
     <hr class="hr-commend">
-    <div style="display: flex;margin-left: 50px">
-        @foreach ($sameproduct as $item)
-         <div class="item-new">
-         <img src="/storage/{{$item->image}}" alt="" height="200px" width="200px">
-         <p>{{$item->name}}</p>
-         <p><b>{{number_format($item->price)}} đ</b></p>
-         <button class="btn btn-danger">Thêm vào giỏ hàng</button>
-         </div>
-         @endforeach
+    <div class="contain-item" >
+        @foreach ($sameproduct as $products)
+                    <div class="item-new">
+                        <form action="/cart/{{$products->id}}" method="post">
+                        <a href="details/{{$products->slug."_".$products->id}}">
+                            <img src="/storage/{{$products->image}}" alt="" height="200px" width="200px">
+                        </a>
+                                <p>{{$products->name}}</p>
+                                <p><b>{{number_format($products->price)}} đ</b></p>
+                                <form action="/cart/{{$products->id}}" method="post">
+                                    @csrf
+                                <button class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                </form>
+                        </form>
+                        </div>
+                    <?php $i++ ?>
+                    @if($i==4) @break @endif
+
+            @endforeach
+         <?php $i = 0 ?>
+            @foreach ($sameproduct as $products)
+                    <div class="item-respon" style="display: none">
+                        <form action="/cart/{{$products->id}}" method="post">
+                        <a href="details/{{$products->slug."_".$products->id}}">
+                            <img src="/storage/{{$products->image}}" alt="" height="200px" width="200px">
+                        </a>
+                                <p>{{$products->name}}</p>
+                                <p><b>{{number_format($products->price)}} đ</b></p>
+                                <form action="/cart/{{$products->id}}" method="post">
+                                    @csrf
+                                <button class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                </form>
+                        </form>
+                        </div>
+                    <?php $i++ ?>
+                    @if($i==2) @break @endif
+
+            @endforeach
     </div>
     <script src="{{asset('js/home.js')}}"> </script>
 </div>

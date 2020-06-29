@@ -22,8 +22,15 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => $faker->name,
             'username' => 'admin',
-            'password' => Hash::make('admin'),
+            'password' => Hash::make('@dmin'),
             'role'=> 'admin',
+            'amount' => 0,
+        ]);
+        DB::table('users')->insert([
+            'name' => $faker->name,
+            'username' => 'ship',
+            'password' => Hash::make('123'),
+            'role'=> 'shipper',
             'amount' => 0,
         ]);
     }

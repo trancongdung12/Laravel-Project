@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/home/login.css')}}">
-    <title>Login</title>
+    <title>Đăng Ký</title>
 </head>
 <style>
     .alert{

@@ -7,8 +7,7 @@
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
      <link rel="stylesheet" href="{{asset('css/admin/admin.css')}}">
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
-
-    <title>Home</title>
+    <title>@yield('title')</title>
 </head>
     @include('partials.admin')
     @yield('content')

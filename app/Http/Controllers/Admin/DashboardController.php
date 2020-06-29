@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $amount->status = 1;
         $amount->user_id = $id_user;
         $amount->save();
-        return redirect('/home');
+        return redirect('/home')->with('status','Nạp thành công. Đợi admin duyệt nhé!');;
     }
     function showAmount(){
         $amounts = Amount::all();

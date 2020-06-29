@@ -4,6 +4,10 @@
     display: flex;
 }
 
+.container-left {
+    margin-right: 50px;
+}
+
 
 /* .container-right {
     margin-top: 70px;
@@ -94,6 +98,7 @@
 
 .item-star {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .checked {
@@ -116,4 +121,52 @@
     background: none;
     border: none;
     outline: none;
+}
+
+.item-respon {
+    padding: 20px;
+    width: 250px;
+    height: 300px;
+}
+
+.item-respon p,
+.item-respon b {
+    text-align: center;
+}
+
+.item-respon .btn {
+    padding: 2px 2px;
+    margin-left: 45px;
+    border-radius: 0px;
+}
+
+.contain-item {
+    display: flex;
+    margin-left: 50px;
+}
+
+@media only screen and (max-width:660px) {
+    .container-form {
+        display: block;
+    }
+    .item-respon {
+        padding: 20px 0px !important;
+        margin-left: 0px !important;
+        display: inline !important;
+    }
+    .item-new {
+        display: none;
+    }
+    .item-comment {
+        width: 100%;
+    }
+    #cotainer-comment {
+        margin-left: -10%;
+    }
+    .contain-item {
+        margin-left: 0px;
+    }
+    .txt-other {
+        margin-left: 130px !important;
+    }
 }

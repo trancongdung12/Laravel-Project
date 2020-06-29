@@ -42,7 +42,7 @@ class CartController extends Controller
                 $carts->quantity = 1;
                 $carts->save();
             }
-             return redirect()->route('user.home');
+             return redirect('/home')->with('status','Thêm vào giỏ hàng thành công!');
         }else{
             return redirect()->route('auth.login',['error'=>'Bạn phải đăng nhập trước khi thêm vào giỏ hàng']);
         }

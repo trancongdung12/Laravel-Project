@@ -40,6 +40,7 @@ class OrderController extends Controller
         foreach ($carts as $cart) {
            foreach ($cart->products as $product) {
             $arrayProduct[] = array(
+            'image'=>$product->image,
             'name'=>$product->name,
             'price'=>$product->price,
             'quantity'=>$cart->quantity
@@ -118,7 +119,7 @@ class OrderController extends Controller
             $profiles->save();
         }
 
-        return redirect('/home');
+        return redirect('/home')->with('status','Thanh toán thành công. Bạn có thể xin chi tiết đơn hàng trong lịch sử mua hàng!');;
 
     }
 }

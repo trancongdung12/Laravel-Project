@@ -58,3 +58,9 @@ input[type='search'] {
 #dropmenu {
     margin-left: -100px;
 }
+
+@media only screen and (max-width:660px) {
+    #dropmenu {
+        margin-left: 0px;
+    }
+}

@@ -17,9 +17,9 @@ class SearchController extends Controller
         if($txt!=null){
             Session::put('search',$txt);
         }
-        if($request->sort =="desc"){
+        if($request->sort =="asc"){
             $product = Product::where('name','LIKE','%'.Session::get('search').'%')->orderBy('price','desc')->get();
-        }else if($request->sort =="asc"){
+        }else if($request->sort =="desc"){
             $product = Product::where('name','LIKE','%'.Session::get('search').'%')->orderBy('price','asc')->get();
         }
         if(count($product)>0){

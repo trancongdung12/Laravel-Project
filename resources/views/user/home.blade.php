@@ -1,9 +1,15 @@
 @extends('layout.master')
+@section('title', 'Trang Chủ')
 @section('content')
 <link rel="stylesheet" href="{{asset('css/home/home.css')}}">
 <body >
           <img class="header-img" src="/storage/public/slide.png" alt="">
            <!------------------ Hover Effect Style : Demo - 8 --------------->
+           @if (session('status'))
+            <script>
+                alert('{{session('status')}}');
+            </script>
+           @endif
         <div class="container mt-40" style="margin-top: 50px">
 
             <div class="row mt-30">
@@ -14,7 +20,7 @@
                       <h3 class="title">{{$hot->name}}</h3>
                         <div class="box-content">
                             <ul class="icon">
-                                <li class="detail"><a href="/details/{{$hot->id}}"><i class="fas fa-search">Chi tiết</i> </a> </li>
+                                <li class="detail"><a href="/details/{{$hot->slug."_".$hot->id}}"><i class="fas fa-search">Chi tiết</i> </a> </li>
                                 <form action="/cart/{{$hot->id}}" method="post">
                                     @csrf
                                 <li><button type="submit"><a  href="#"><i class="fas fa-shopping-cart">Giỏ hàng</i> </a></button> </li>
@@ -66,16 +72,16 @@
                     <table class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Note</th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Code</th>
-                            <th scope="col">Discount</th>
-                            <th scope="col">Payment</th>
-                            <th scope="col">Total</th>
-                            <th></th>
+                            <th scope="col">Tên</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Ghi chú</th>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Mã</th>
+                            <th scope="col">Giảm giá</th>
+                            <th scope="col">Thanh toán</th>
+                            <th scope="col">Tổng</th>
+                            <th scope="col">Tình trạng</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -88,13 +94,29 @@
                             <td>{{$order->note}}</td>
                             <td>
                                 @foreach(json_decode($order->detail) as $products)
-                                {{' | '.$products->name.', giá: '.number_format($products->price).' đ , số lượng '.$products->quantity.' | '}}
+                                {{'<img src="/storage/'.$products->image.'"> '.$products->name.', giá: '.
+                                number_format($products->price).' đ ,số lượng '.$products->quantity.' | '}}
                                 @endforeach
                             </td>
                             <td>{{$order->code}}</td>
                             <td>{{$order->percent*100}}%</td>
-                            <td>{{$order->type}}</td>
-                            <td>{{$order->total}}</td>
+                            <td>
+                                @if($order->type =='money')
+                                Thanh toán sau khi nhận hàng
+                                @else
+                                Thanh toán online
+                                @endif
+                            </td>
+                            <td>{{number_format($order->total)}}  đ</td>
+                            <td>
+                                @if($order->status == 1)
+                                <button class="btn btn-danger">Đang xử lý</button>
+                                @elseif($item->status == 2)
+                                <button class="btn btn-primary">Đang giao hàng</button>
+                                @elseif($item->status == 3)
+                                <button class="btn btn-success">Thành công</button>
+                                @endif
+                            </td>
                           </tr>
                           @endforeach
                         </tbody>
@@ -113,7 +135,6 @@
         <ul id="menu">
             <li id="item1" class="active" onclick="item(1)"><a>SẢN PHẨM MỚI NHẤT</a></li>
             <li id="item2" class="none" onclick="item(2)"><a >SẢN PHẨM BÁN CHẠY</a></li>
-            {{-- <li id="item3" class="none" onclick="item(3)"><a>SẢN PHẨM PHỔ BIẾN</a></li> --}}
         </ul>
         <hr class="hr-commend">
 
@@ -123,7 +144,7 @@
 
             <div class="item-new">
             <form action="/cart/{{$itemphone->id}}" method="post">
-            <a href="details/{{$itemphone->id}}">
+            <a href="details/{{$itemphone->slug."_".$itemphone->id}}">
                 <img src="/storage/{{$itemphone->image}}" alt="" height="200px" width="200px">
             </a>
                     <p>{{$itemphone->name}}</p>
@@ -136,33 +157,78 @@
             </div>
 
             @endforeach
-            </div>
-            <div id="menu2">
-                <div class="item-new">
-                    <img src="https://didongviet.vn/pub/media/catalog/product/cache/926507dc7f93631a094422215b778fe0/i/p/iphone-11-siver-didongviet_16_1.jpg" alt="" height="200px" width="200px">
-                    <p>Iphone X</p>
-                    <p><b>10,230,000 đ</b></p>
+
+            <?php $i = 0 ?>
+            @foreach ($product as $products)
+                    <div class="item-respon" style="display: none">
+                        <form action="/cart/{{$products->id}}" method="post">
+                        <a href="details/{{$products->slug."_".$products->id}}">
+                            <img src="/storage/{{$products->image}}" alt="" height="200px" width="200px">
+                        </a>
+                                <p>{{$products->name}}</p>
+                                <p><b>{{number_format($products->price)}} đ</b></p>
+                                <form action="/cart/{{$products->id}}" method="post">
+                                    @csrf
+                                <button class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                </form>
+                        </form>
+                        </div>
+                    <?php $i++ ?>
+                    @if($i==2) @break @endif
+
+            @endforeach
+        </div>
+        <div id="menu2">
+            @foreach ($product as $itemphone)
+
+            <div class="item-new">
+            <form action="/cart/{{$itemphone->id}}" method="post">
+            <a href="details/{{$itemphone->slug."_".$itemphone->id}}">
+                <img src="/storage/{{$itemphone->image}}" alt="" height="200px" width="200px">
+            </a>
+                    <p>{{$itemphone->name}}</p>
+                    <p><b>{{number_format($itemphone->price)}} đ</b></p>
+                    <form action="/cart/{{$itemphone->id}}" method="post">
+                        @csrf
                     <button class="btn btn-danger">Thêm vào giỏ hàng</button>
-                </div>
-                <div class="item-new">
-                    <img src="https://didongviet.vn/pub/media/catalog/product/cache/926507dc7f93631a094422215b778fe0/i/p/iphone-11-siver-didongviet_16_1.jpg" alt="" height="200px" width="200px">
-                    <p>Iphone X</p>
-                    <p><b>10,230,000 đ</b></p>
-                    <button class="btn btn-danger">Thêm vào giỏ hàng</button>
-                </div>
+                    </form>
+            </form>
             </div>
+
+            @endforeach
+
+            <?php $i = 0 ?>
+            @foreach ($product as $products)
+                    <div class="item-respon" style="display: none">
+                        <form action="/cart/{{$products->id}}" method="post">
+                        <a href="details/{{$products->slug."_".$products->id}}">
+                            <img src="/storage/{{$products->image}}" alt="" height="200px" width="200px">
+                        </a>
+                                <p>{{$products->name}}</p>
+                                <p><b>{{number_format($products->price)}} đ</b></p>
+                                <form action="/cart/{{$products->id}}" method="post">
+                                    @csrf
+                                <button class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                </form>
+                        </form>
+                        </div>
+                    <?php $i++ ?>
+                    @if($i==2) @break @endif
+
+            @endforeach
+        </div>
         </div>
         @foreach ($categories as $category)
         <div id="scrollID{{$category->id}}">
         <div class="container" id="other" style="margin-top: 100px">
         <p class="txt-other" > {{$category->getToupperName()}}</p>
                <hr class="hr-commend">
-               <div style="display: flex;margin-left: 50px">
+               <div class="contain-item">
             <?php $i = 0 ?>
             @foreach ($category->products as $products)
                     <div class="item-new">
                         <form action="/cart/{{$products->id}}" method="post">
-                        <a href="details/{{$products->id}}">
+                        <a href="details/{{$products->slug."_".$products->id}}">
                             <img src="/storage/{{$products->image}}" alt="" height="200px" width="200px">
                         </a>
                                 <p>{{$products->name}}</p>
@@ -180,11 +246,31 @@
             @if(count($category->products)>4)
                <a href="/view-more" class="next"><i class="fa fa-chevron-circle-right"></i></a>
             @endif
+            <?php $i = 0 ?>
+            @foreach ($category->products as $products)
+                    <div class="item-respon" style="display: none">
+                        <form action="/cart/{{$products->id}}" method="post">
+                        <a href="details/{{$products->slug."_".$products->id}}">
+                            <img src="/storage/{{$products->image}}" alt="" height="200px" width="200px">
+                        </a>
+                                <p>{{$products->name}}</p>
+                                <p><b>{{number_format($products->price)}} đ</b></p>
+                                <form action="/cart/{{$products->id}}" method="post">
+                                    @csrf
+                                <button class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                </form>
+                        </form>
+                        </div>
+                    <?php $i++ ?>
+                    @if($i==2) @break @endif
+
+            @endforeach
             </div>
         </div>
     </div>
         @endforeach
         </div>
+
     <script src="{{asset('js/home.js')}}"> </script>
 </body>
 @endsection

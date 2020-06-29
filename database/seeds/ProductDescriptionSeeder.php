@@ -12,9 +12,9 @@ class ProductDescriptionSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for($i=1;$i<16;$i++){
+        for($i=0;$i<16;$i++){
             DB::table('description_products')->insert([
-                'product_id' =>$i,
+                'product_id' =>++$i,
                 'content'=>$faker->text
             ]);
         }

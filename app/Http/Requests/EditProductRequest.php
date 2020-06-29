@@ -24,7 +24,7 @@ class EditProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'slug' => 'required|unique:products',
         ];
     }
 }

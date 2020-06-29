@@ -18,7 +18,7 @@ class HomeController extends Controller
 {
     function index(){
         $getAllProduct = Product::all();
-        $product = Product::all()->take(4);
+        $product = DB::table('products')->orderBy('id','desc')->limit(4)->get();
         $category = Category::all();
 
         foreach($category as $item){
@@ -42,8 +42,7 @@ class HomeController extends Controller
 
         }
     }
-    function details($id){
-        $id_user = Auth::user()->id;
+    function details($slug,$id){
         $category = Category::all();
         $getProduct = Product::find($id);
         $detail = DescriptionProduct::where('product_id',$id)->first();
@@ -52,16 +51,23 @@ class HomeController extends Controller
         foreach ($comment as $comments) {
             $comments->users;
         }
-        $rate = Rate::where(['product_id'=>$id,'user_id'=>$id_user])->get();
-        $checkRated = count($rate);
-
-
         //Rate Percent
         $rates = Rate::where('product_id',$id)->sum('quantity');
         $count = Rate::where('product_id',$id)->count();
-        $total= array(round($rates/$count),$count);
+        if($count ==0){
+            $total= array(0,0);
+        }else{
+            $total= array(round($rates/$count),$count);
+        }
+        if(Auth::user()){
+            $id_user = Auth::user()->id;
+            $rate = Rate::where(['product_id'=>$id,'user_id'=>$id_user])->get();
+            $checkRated = count($rate);
+            return view('user.product.details',['rates'=>$total,'checkRated'=>$checkRated,'comments'=>$comment,'product'=>$getProduct,'detail'=>$detail,'sameproduct'=>$sameproduct,'categories'=>$category]);
+        }else{
+            return view('user.product.details',['rates'=>$total,'comments'=>$comment,'product'=>$getProduct,'detail'=>$detail,'sameproduct'=>$sameproduct,'categories'=>$category]);
+        }
           //echo "<pre>".json_encode($rates/$count,JSON_PRETTY_PRINT)."</pre>";
-        return view('user.product.details',['rates'=>$total,'checkRated'=>$checkRated,'comments'=>$comment,'product'=>$getProduct,'detail'=>$detail,'sameproduct'=>$sameproduct,'categories'=>$category]);
      }
      function addComment(Request $request){
          $content = $request->content;
@@ -72,16 +78,16 @@ class HomeController extends Controller
          $comments->product_id = $id_product;
          $comments->content = $content;
          $comments->save();
-         return redirect('/details/'.$id_product);
+         return redirect('/details/'.$request->slug."_".$id_product);
      }
-     function rate($qty,$id_product){
+     function rate($qty,$slug,$id_product){
         $id_user = Auth::user()->id;
         $rates = new Rate();
         $rates->user_id= $id_user;
         $rates->product_id = $id_product;
         $rates->quantity = $qty;
         $rates->save();
-        return redirect('/details/'.$id_product);
+        return redirect('/details/'.$slug."_".$id_product);
      }
 
 }

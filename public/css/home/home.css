@@ -119,8 +119,57 @@
     }
 }
 
+@media only screen and (max-width:660px) {
+    .box8 {
+        display: none;
+    }
+    #recommend #menu {
+        margin-left: 20% !important;
+        margin-top: -150px;
+    }
+    #recommend #menu li {
+        font-size: 10px;
+    }
+    .header-img {
+        margin-top: 53px;
+    }
+    .item-new {
+        display: none;
+    }
+    .item-respon {
+        padding: 20px 0px !important;
+        margin-left: 0px !important;
+        display: inline !important;
+    }
+    .contain-item {
+        margin-left: 0px !important;
+    }
+}
+
+.item-respon {
+    padding: 20px;
+    width: 250px;
+    height: 300px;
+}
+
+.item-respon p,
+.item-respon b {
+    text-align: center;
+}
+
+.item-respon .btn {
+    padding: 2px 2px;
+    margin-left: 45px;
+    border-radius: 0px;
+}
+
 
 /* Recommend */
+
+.contain-item {
+    display: flex;
+    margin-left: 50px;
+}
 
 #recommend {
     margin-top: 150px;
@@ -152,33 +201,6 @@
     padding: 10px;
     list-style-type: none;
 }
-
-
-/* #recommend #menu li,
-#menu a {
-    border-radius: 0px !important;
-}
-
-#recommend #menu li {
-    margin-left: 2px;
-}
-
-#menu a {
-    color: #72777b;
-}
-
-.nav-pills>li.active>a {
-    color: white !important;
-    background-color: black !important;
-}
-
-#recommend #menu li:active {
-    background-color: #000 !important;
-}
-
-#recommend #menu li:hover {
-    background-color: #000 !important;
-} */
 
 #menu1 {
     margin-left: 50px;

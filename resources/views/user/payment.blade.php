@@ -1,4 +1,5 @@
 @extends('layout.master')
+@section('title', 'Thanh Toán')
 @section('content')
     <link rel="stylesheet" href="{{asset('css/home/payment.css')}}">
     <div class="container">
