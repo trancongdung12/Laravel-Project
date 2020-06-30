@@ -1,4 +1,5 @@
 @extends('layout.adminMaster')
+@section('title','DashBoard')
 @section('content')
 <!-- PAGE CONTAINER-->
 <div class="page-container">
@@ -30,8 +31,8 @@
                     <div class="col-md-12">
                         <div class="overview-wrap">
                             <h2 class="title-1">overview</h2>
-                            <button class="au-btn au-btn-icon au-btn--blue">
-                                <i class="zmdi zmdi-plus"></i>add item</button>
+                            {{-- <button class="au-btn au-btn-icon au-btn--blue">
+                                <i class="zmdi zmdi-plus"></i>add item</button> --}}
                         </div>
                     </div>
                 </div>
@@ -44,8 +45,8 @@
                                         <i class="fas fa-users"></i>
                                     </div>
                                     <div class="text">
-                                        <h2>10368</h2>
-                                        <span>members online</span>
+                                    <h2>{{$users}}</h2>
+                                        <span>members</span>
                                     </div>
                                 </div>
                                 <div class="overview-chart">
@@ -62,8 +63,8 @@
                                         <i class="fas fa-shopping-cart"></i>
                                     </div>
                                     <div class="text">
-                                        <h2>388,688</h2>
-                                        <span>items solid</span>
+                                        <h2>{{$orders}}</h2>
+                                        <span>orders</span>
                                     </div>
                                 </div>
                                 <div class="overview-chart">
@@ -80,8 +81,8 @@
                                         <i class="fas fa-calendar-check"></i>
                                     </div>
                                     <div class="text">
-                                        <h2>1,100,086</h2>
-                                        <span>this week</span>
+                                        <h2>{{$products}}</h2>
+                                        <span>products</span>
                                     </div>
                                 </div>
                                 <div class="overview-chart">
@@ -95,11 +96,11 @@
                             <div class="overview__inner">
                                 <div class="overview-box clearfix">
                                     <div class="icon">
-                                        <i class="fas fa-money-bill-alt"></i>
+                                        <i class="fas fa-money-bill-alt"></i><span>total earnings</span>
                                     </div>
                                     <div class="text">
-                                        <h2>$1,060,386</h2>
-                                        <span>total earnings</span>
+
+                                        <h2 style="font-size: 25px">{{number_format($money)}} đ</h2>
                                     </div>
                                 </div>
                                 <div class="overview-chart">

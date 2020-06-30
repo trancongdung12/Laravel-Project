@@ -13,6 +13,7 @@
                 <th scope="col">Total</th>
                 <th scope="col">Type</th>
                 <th scope="col">Status</th>
+                <th>Shipper</th>
                 <th></th>
               </tr>
             </thead>
@@ -33,13 +34,28 @@
                     <button class="btn btn-success">Shipped</button>
                     @endif
                 </td>
-                <td style="display: flex">
+                <td>
                     @if($item->status == 1)
                     <form action="/admin/order/{{$item->id}}/accept" method="post" >
-                        @csrf
-                        <button type="submit" class="btn btn-success"><i style="color: white" class="fas fa-check"></i></button>
+                    <select name="shipper" id="">
+                        @foreach ($users as $shipper)
+                        <option value="{{$shipper->id}}">{{$shipper->name}}</option>
+                        @endforeach
+                    </select>
+                    @csrf
+                    <button type="submit" class="btn btn-success">Accept</button>
                     </form>
+                    @else
+                        @foreach ($shipper as $ship)
+                            @if($ship->order_id == $item->id)
+                                {{$ship->users->name}}
+                            @endif
+                        @endforeach
                     @endif
+                </td>
+                <td style="display: flex">
+
+
                         <button style="margin-left: 10px" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal{{$item->id}}">
                             <i style="color: white" class="fas fa-eye"></i>
                         </button>
@@ -57,7 +73,7 @@
         @foreach($orders as $item)
          <!-- Modal -->
                 <div class="modal fade" id="modal{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-dialog modal-lg" role="document" style="overflow-y: auto;height: 500px;">
                     <div class="modal-content">
                         <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Order Detail</h5>
@@ -89,9 +105,12 @@
                                     <td>{{$item->address}}</td>
                                     <td>{{$item->phone}}</td>
                                     <td>{{$item->note}}</td>
-                                    <td>{{$product->name}}</td>
+                                    <td>
+                                        <img src="/storage/{{$product->image}}" height="50px" width="50px">
+                                        {{$product->name}}
+                                    </td>
                                     <td>{{$product->quantity}}</td>
-                                    <td>{{number_format($product->price)}} đ</td>
+                                    <td style="width: 150px;">{{number_format($product->price)}} đ</td>
                                     <td>{{$item->code}}</td>
                                     <td>{{$item->percent*100}}%</td>
                                   </tr>

@@ -5,12 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Amount;
+use App\Order;
+use App\Product;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     function index(){
-        return view('admin.dashboard');
+        $user = User::all()->count();
+        $order = Order::all()->count();
+        $product = Product::all()->count();
+        $money = Order::all()->sum('total');
+        return view('admin.dashboard',['users'=>$user,'orders'=>$order,'products'=>$product,'money'=>$money]);
     }
     function addMoney(Request $request){
         $id_user = Auth::user()->id;

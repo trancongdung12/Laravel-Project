@@ -3,6 +3,11 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('css/home/details.css')}}">
 <div class="container" style="margin-bottom: 50px">
+    @if (session('status'))
+            <script>
+                alert('{{session('status')}}');
+            </script>
+           @endif
     <div class="container-form">
         <div class="container-left">
         <img src="/storage/{{$product->image}}" alt="" height="500px" width="450px">
@@ -13,11 +18,15 @@
                 <p>{{number_format($product->price)}} đ</p>
                 <div>
                     <div style="display: flex">
-                        <form action="/details/cart/{{$product->id}}" method="post">
+                        <form action="/details/cart/{{$product->slug.'_'}}{{$product->id}}" method="post">
+                        @if($product->quantity<= 0)
+                        Hết hàng
+                        @else
                         <input type="number" name="qty-cart" min="1" max="{{$product->quantity}}" value="1">
                             @csrf
                         <button class="btn btn-danger">Thêm vào giỏ hàng</button>
                          </form>
+                        @endif
                     </div>
                     <div class="item-star">
 

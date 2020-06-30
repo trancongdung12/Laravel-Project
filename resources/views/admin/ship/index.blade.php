@@ -8,10 +8,19 @@
     <script src="{{asset('js/app.js')}}"></script>
     <title>Shipper</title>
 </head>
+<style>
+    .waring{
+        color: red;
+    }
+</style>
 <body>
 <div class="page-container" style="margin-top: 15px;">
     <div class="container" style="background-color: white;height: 800px">
-        <h1>Ship order</h1>
+        <h1>Ship order
+            <form action="/home/logout" method="get">
+                <button class="btn btn-danger">Log out</button>
+            </form>
+        </h1>
         <hr>
         <table class="table">
             <thead class="thead-dark">
@@ -29,43 +38,43 @@
             </thead>
             <tbody>
                 <?php $i=1; ?>
-                @foreach ($orders as $item)
+                @foreach ($ship as $item)
               <tr>
                 <th scope="row"><?php echo $i++; ?></th>
-                <td>{{$item->name}}</td>
+                <td>{{$item->orders->name}}</td>
                 <td>
-                     @foreach(json_decode($item->detail) as $product)
+                     @foreach(json_decode($item->orders->detail) as $product)
                      {{$product->name .' , '}}
                      @endforeach
                 </td>
-                <td>{{$item->address}}</td>
-                <td>{{$item->phone}}</td>
+                <td>{{$item->orders->address}}</td>
+                <td>{{$item->orders->phone}}</td>
                 <td>
-                    @if($item->type =='online')
+                    @if($item->orders->type =='online')
                         0 đ
                     @else
-                    {{number_format($item->total)}} đ
+                    {{number_format($item->orders->total)}} đ
                     @endif
                 </td>
                 <td>
-                    @if($item->type =='money')
+                    @if($item->orders->type =='money')
                     Thanh toán sau khi nhận hàng
                     @else
                     Đã thanh toán online
                     @endif
                 </td>
                 <td>
-                    @if($item->status == 1)
-                    <button class="btn btn-danger">Processing</button>
-                    @elseif($item->status == 2)
-                    <button class="btn btn-primary">Shipping</button>
-                    @elseif($item->status == 3)
-                    <button class="btn btn-success">Shipped</button>
+                    @if($item->orders->status == 1)
+                    <p class="waring">Processing</p>
+                    @elseif($item->orders->status == 2)
+                    <p class="waring">Shipping</p>
+                    @elseif($item->orders->status == 3)
+                    <p class="waring">Shipped</p>
                     @endif
                 </td>
                 <td style="display: flex">
-                    @if($item->status == 2)
-                    <form action="/admin/{{$item->id}}/shipped" method="post" >
+                    @if($item->orders->status == 2)
+                    <form action="/admin/{{$item->orders->id}}/shipped" method="post" >
                         @csrf
                         <button type="submit" class="btn btn-success">Shipped</button>
                     </form>

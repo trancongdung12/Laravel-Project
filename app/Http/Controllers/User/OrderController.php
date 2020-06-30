@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Session;
 use App\Cart;
 use App\Profile;
 use App\Order;
+use App\Product;
+use App\Sale;
 use App\User;
 class OrderController extends Controller
 {
     function store(Request $request){
-
 
         $type =$request->type;
         $name = $request->name;
@@ -48,19 +49,42 @@ class OrderController extends Controller
            }
         }
         $detail = json_encode($arrayProduct);
-
+        //Thanh toán online
         if($type=='online'){
             $amount = Auth::user()->amount;
             if($amount<$total){
                 return redirect()->route('user.payment',['error'=>'Số tiền trong tài khoản của bạn không đủ! Vui lòng nạp thêm tiền']);
             }else{
+            //Trừ số lượng sản phẩm
+            foreach ($carts as $cart) {
+            $products = Product::find($cart->product_id);
+            $products->quantity = $products->quantity - $cart->quantity;
+            $products->save();
+            }
+            //Thêm vào bảng tính số lượng bán
+            foreach ($carts as $cart) {
+                //Sản phẩm đã có hay chưa
+                $count = Sale::where('product_id',$cart->product_id)->count();
+                if($count>0){
+                    $sales = Sale::where('product_id',$cart->product_id)->first();
+                    $sales->quantity =$sales->quantity+$cart->quantity;
+                }else{
+                    $sales = new Sale();
+                    $sales->product_id =  $cart->product_id;
+                    $sales->quantity =  $cart->quantity;
+                }
+                $sales->save();
+            }
+            //Xóa giỏ hàng
             foreach ($carts as $cart) {
                 Cart::find($cart->id)->delete();
             }
+            //Trừ tiền trong tài khoản
             $users = User::find($user_id);
             $users->amount = $users->amount-$total;
             $users->save();
 
+            //Lưu vào order
             $orders = new Order;
             $orders->user_id = $user_id;
             $orders->detail = $detail;
@@ -76,6 +100,26 @@ class OrderController extends Controller
             $orders->save();
             }
         }else{
+            //Trừ số lượng sản phẩm
+            foreach ($carts as $cart) {
+                $products = Product::find($cart->product_id);
+                $products->quantity = $products->quantity - $cart->quantity;
+                $products->save();
+                }
+                //Thêm vào bảng tính số lượng bán
+                foreach ($carts as $cart) {
+                    //Sản phẩm đã có hay chưa
+                    $count = Sale::where('product_id',$cart->product_id)->count();
+                    if($count>0){
+                        $sales = Sale::where('product_id',$cart->product_id)->first();
+                        $sales->quantity =$sales->quantity+$cart->quantity;
+                    }else{
+                        $sales = new Sale();
+                        $sales->product_id =  $cart->product_id;
+                        $sales->quantity =  $cart->quantity;
+                    }
+                    $sales->save();
+            }
             foreach ($carts as $cart) {
                 Cart::find($cart->id)->delete();
             }

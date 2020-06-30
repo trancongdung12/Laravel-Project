@@ -44,10 +44,10 @@ class CartController extends Controller
             }
              return redirect('/home')->with('status','Thêm vào giỏ hàng thành công!');
         }else{
-            return redirect()->route('auth.login',['error'=>'Bạn phải đăng nhập trước khi thêm vào giỏ hàng']);
+            return redirect('/home')->with('status','Bạn chưa đăng nhập!');
         }
     }
-    function storeCart($id_product,Request $request){
+    function storeCart($slug,$id_product,Request $request){
         if(Auth::user()){
             $qty = $request->input('qty-cart');
             $id_user = Auth::user()->id;
@@ -59,7 +59,7 @@ class CartController extends Controller
             }
             return redirect('/cart');
         }else{
-            return redirect()->route('auth.login',['error'=>'Bạn phải đăng nhập trước khi thêm vào giỏ hàng']);
+            return redirect('/details/'.$slug.'_'.$id_product)->with('status','Bạn chưa đăng nhập!');
         }
     }
     function update($id,Request $request){

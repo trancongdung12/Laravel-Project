@@ -14,18 +14,24 @@ use App\Comment;
 use App\DescriptionProduct;
 use App\Order;
 use App\Rate;
+use App\Sale;
+
 class HomeController extends Controller
 {
     function index(){
         $getAllProduct = Product::all();
         $product = DB::table('products')->orderBy('id','desc')->limit(4)->get();
         $category = Category::all();
-
         foreach($category as $item){
             $item->products;
         }
-         //echo "<pre>".json_encode($category,JSON_PRETTY_PRINT)."</pre>";
+
         $hotphone = Product::all()->take(3);
+        $sale = Sale::orderBy('quantity','desc')->get();
+        foreach($sale as $sales){
+            $sales->products;
+        }
+     //echo "<pre>".json_encode($sale,JSON_PRETTY_PRINT)."</pre>";
         if(Auth::user()){
             $id_user = Auth::user()->id;
             $order = Order::where('user_id',$id_user)->get();
@@ -35,10 +41,10 @@ class HomeController extends Controller
                $count += $cart->quantity;
             }
             Session::put('countCart', $count);
-            return view('user.home',['orders'=>$order,'product'=>$product,'hotphone'=>$hotphone,'categories'=>$category,'getAllProducts'=>$getAllProduct]);
+            return view('user.home',['sales'=>$sale,'orders'=>$order,'product'=>$product,'hotphone'=>$hotphone,'categories'=>$category,'getAllProducts'=>$getAllProduct]);
 
         }else{
-            return view('user.home',['product'=>$product,'hotphone'=>$hotphone,'categories'=>$category,'getAllProducts'=>$getAllProduct]);
+            return view('user.home',['sales'=>$sale,'product'=>$product,'hotphone'=>$hotphone,'categories'=>$category,'getAllProducts'=>$getAllProduct]);
 
         }
     }

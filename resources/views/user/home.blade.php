@@ -60,7 +60,7 @@
         @if(Auth::user())
         <!-- Model -->
         <div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Lịch sử mua hàng</h5>
@@ -92,10 +92,13 @@
                             <td>{{$order->address}}</td>
                             <td>{{$order->phone}}</td>
                             <td>{{$order->note}}</td>
-                            <td>
+                            <td style="display: flex">
                                 @foreach(json_decode($order->detail) as $products)
-                                {{'<img src="/storage/'.$products->image.'"> '.$products->name.', giá: '.
-                                number_format($products->price).' đ ,số lượng '.$products->quantity.' | '}}
+                                <img src="/storage/{{$products->image}}" height="50px" width="50px">
+                                <div style="width: 120px;">
+                                    <p>{{$products->name}}</p>
+                                    <b>{{number_format($products->price)}} đ x {{$products->quantity}}</b>
+                                </div>
                                 @endforeach
                             </td>
                             <td>{{$order->code}}</td>
@@ -107,13 +110,13 @@
                                 Thanh toán online
                                 @endif
                             </td>
-                            <td>{{number_format($order->total)}}  đ</td>
+                            <td  style="width: 120px;">{{number_format($order->total)}}  đ</td>
                             <td>
                                 @if($order->status == 1)
                                 <button class="btn btn-danger">Đang xử lý</button>
-                                @elseif($item->status == 2)
+                                @elseif($order->status == 2)
                                 <button class="btn btn-primary">Đang giao hàng</button>
-                                @elseif($item->status == 3)
+                                @elseif($order->status == 3)
                                 <button class="btn btn-success">Thành công</button>
                                 @endif
                             </td>
@@ -179,24 +182,27 @@
             @endforeach
         </div>
         <div id="menu2">
-            @foreach ($product as $itemphone)
-
-            <div class="item-new">
-            <form action="/cart/{{$itemphone->id}}" method="post">
-            <a href="details/{{$itemphone->slug."_".$itemphone->id}}">
-                <img src="/storage/{{$itemphone->image}}" alt="" height="200px" width="200px">
-            </a>
-                    <p>{{$itemphone->name}}</p>
-                    <p><b>{{number_format($itemphone->price)}} đ</b></p>
-                    <form action="/cart/{{$itemphone->id}}" method="post">
-                        @csrf
-                    <button class="btn btn-danger">Thêm vào giỏ hàng</button>
-                    </form>
-            </form>
-            </div>
+            <?php $i = 0 ?>
+            @foreach ($sales as $sale)
+                    <div class="item-new">
+                        <form action="/cart/{{$sale->products->id}}" method="post">
+                        <a href="details/{{$sale->products->slug."_".$sale->products->id}}">
+                            <img src="/storage/{{$sale->products->image}}" alt="" height="200px" width="200px">
+                        </a>
+                                <p>{{$sale->products->name}}</p>
+                                <p><b>{{number_format($sale->products->price)}} đ</b></p>
+                                <form action="/cart/{{$sale->products->id}}" method="post">
+                                    @csrf
+                                <button class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                </form>
+                        </form>
+                        </div>
+                    <?php $i++ ?>
+                    @if($i==4)
+                    <a href="/view-more" class="next"><i class="fa fa-chevron-circle-right"></i></a>
+                    @break @endif
 
             @endforeach
-
             <?php $i = 0 ?>
             @foreach ($product as $products)
                     <div class="item-respon" style="display: none">
