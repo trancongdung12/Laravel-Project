@@ -45,7 +45,7 @@
             <li class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><i class="fa fa-user"></i> {{Auth::user()->name}} <b class="caret"></b></a>
                 <div class="dropdown-menu" id="dropmenu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-address-card"></i></i> Nạp tiền</a>
+                    <a class="dropdown-item" type="button" class="btn btn-primary" data-toggle="modal" data-target="#money"><i class="fas fa-address-card"></i></i> Nạp tiền</a>
                     <a class="dropdown-item" type="button" data-toggle="modal" data-target="#historyModal""><i class="fas fa-history"></i></i> Lịch sử mua hàng</a>
                     <a class="dropdown-item" href="/home/logout"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
                   </div>
@@ -61,4 +61,5 @@
             @endif
         </ul>
         </div>
+
 </nav>

@@ -51,6 +51,7 @@ class OrderController extends Controller
         $detail = json_encode($arrayProduct);
         //Thanh toán online
         if($type=='online'){
+            Session::forget('discount');
             $amount = Auth::user()->amount;
             if($amount<$total){
                 return redirect()->route('user.payment',['error'=>'Số tiền trong tài khoản của bạn không đủ! Vui lòng nạp thêm tiền']);
@@ -100,6 +101,7 @@ class OrderController extends Controller
             $orders->save();
             }
         }else{
+            Session::forget('discount');
             //Trừ số lượng sản phẩm
             foreach ($carts as $cart) {
                 $products = Product::find($cart->product_id);

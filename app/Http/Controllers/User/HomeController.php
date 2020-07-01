@@ -31,7 +31,7 @@ class HomeController extends Controller
         foreach($sale as $sales){
             $sales->products;
         }
-     //echo "<pre>".json_encode($sale,JSON_PRETTY_PRINT)."</pre>";
+      //echo "<pre>".json_encode($sale,JSON_PRETTY_PRINT)."</pre>";
         if(Auth::user()){
             $id_user = Auth::user()->id;
             $order = Order::where('user_id',$id_user)->get();

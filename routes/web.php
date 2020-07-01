@@ -57,7 +57,7 @@ Route::get('/rate-star-{quantity}/{slug}_{id}','User\HomeController@rate');
 //Cart
 Route::get('/cart','User\CartController@index')->name('user.cart');
 Route::post('/cart/{id}','User\CartController@store');
-Route::post('/details/cart/{slug}_{id}','User\CartController@storeCart');
+Route::post('/details/cart/{slug}_{id}','User\CartController@cartDetail');
 Route::patch('/cart/{id}','User\CartController@update');
 Route::delete('/cart/{id}','User\CartController@destroy');
 Route::post('/discount/cart/','User\CartController@discount');

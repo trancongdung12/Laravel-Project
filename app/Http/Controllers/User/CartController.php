@@ -15,13 +15,17 @@ class CartController extends Controller
 {
     function index(){
         if(Auth::user()){
+            if(Session::get('countCart')!=0){
             $category = Category::all();
             $id_user = Auth::user()->id;
             $carts = Cart::where('user_id',$id_user)->get();
             foreach ($carts as $cart) {
                 $cart->products;
             }
-            return view('user.cart',['categories'=>$category,'cart'=>$carts]);
+                return view('user.cart',['categories'=>$category,'cart'=>$carts]);
+            }else{
+                return redirect('/home')->with('status','Giỏ hàng trống!');
+            }
         }else{
             return redirect()->route('auth.login',['error'=>'Bạn phải đăng nhập trước khi thêm vào giỏ hàng']);
         }
@@ -47,17 +51,18 @@ class CartController extends Controller
             return redirect('/home')->with('status','Bạn chưa đăng nhập!');
         }
     }
-    function storeCart($slug,$id_product,Request $request){
+    function cartDetail($slug,$id_product,Request $request){
         if(Auth::user()){
             $qty = $request->input('qty-cart');
+            Session::put('countCart',$qty);
             $id_user = Auth::user()->id;
-            $cart = DB::table('cart')->where('id_user',$id_user)->where('id_product',$id_product)->first();
+            $cart = DB::table('carts')->where('user_id',$id_user)->where('product_id',$id_product)->first();
             if($cart){
-                DB::table('cart')->where('id',$cart->id)->update(['quantity'=>$cart->quantity+$qty]);
+                DB::table('carts')->where('id',$cart->id)->update(['quantity'=>$cart->quantity+$qty]);
             }else{
-                DB::table('cart')->insert(['id_user'=>$id_user,'id_product'=>$id_product,'quantity'=>$qty]);
+                DB::table('carts')->insert(['user_id'=>$id_user,'product_id'=>$id_product,'quantity'=>$qty]);
             }
-            return redirect('/cart');
+            return redirect('/cart')->with('status','Thêm vào giỏ hàng thành công!');
         }else{
             return redirect('/details/'.$slug.'_'.$id_product)->with('status','Bạn chưa đăng nhập!');
         }
@@ -67,11 +72,17 @@ class CartController extends Controller
             $carts = Cart::find($id);
             $carts->quantity = $qty;
             $carts->save();
-          return redirect()->route('user.cart',['message'=>'Cập nhật thành công']);
+            return redirect('/cart')->with('status','Cập nhật thành công!');;
     }
     function destroy($id){
         Cart::find($id)->delete();
-        return redirect('/cart');
+        $carts = Cart::where('user_id',Auth::user()->id)->get();
+        $count = 0;
+            foreach ( $carts as $cart) {
+               $count += $cart->quantity;
+            }
+            Session::put('countCart', $count);
+        return redirect('/cart')->with('status','Xóa thành công!');
     }
     function discount(Request $request){
             $code = strtoupper($request->input('discount'));

@@ -3,7 +3,12 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('css/home/cart.css')}}">
         <div class="container" style="margin-top: 100px">
-                <p style="color: red">{{Request::get('message')}}</p>
+
+                @if (session('status'))
+            <script>
+                alert('{{session('status')}}');
+            </script>
+           @endif
                 <div class="form">
 
                     <div class="left-form">
