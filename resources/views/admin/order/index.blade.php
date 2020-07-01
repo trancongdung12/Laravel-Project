@@ -4,6 +4,14 @@
 <div class="page-container" style="margin-top: 15px;">
     <div class="container" style="background-color: white;height: 800px">
         <h1>Show order</h1>
+        <div style="display: flex">
+            <form action="/export/excel" method="get">
+                <button class="btn btn-danger">Export Excel</button>
+                </form>
+                <form style="margin-left: 20px"  action="/export/pdf" method="get">
+                <button class="btn btn-success">Export PDF</button>
+                </form>
+        </div>
         <hr>
         <table class="table">
             <thead class="thead-dark">

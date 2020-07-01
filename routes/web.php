@@ -85,3 +85,9 @@ Route::get('/404', function () {
     return abort(404);
 });
 
+//Export
+Route::prefix('export')->group(function () {
+    Route::get('excel','ExportController@excel');
+    Route::get('pdf','ExportController@pdf');
+});
+
