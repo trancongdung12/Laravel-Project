@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Cart;
+use App\Mail\paymentMail;
 use App\Profile;
 use App\Order;
 use App\Product;
@@ -21,6 +22,7 @@ class OrderController extends Controller
         $address = $request->address;
         $phone = $request->phone;
         $note = $request->note;
+        $email = $request->email;
         if($note==null){
             $note = " ";
         }
@@ -51,6 +53,8 @@ class OrderController extends Controller
         $detail = json_encode($arrayProduct);
         //Thanh toán online
         if($type=='online'){
+            $data =['name'=>$name,'address'=>$address,'type'=>$type,'total'=>$total,'product'=>$arrayProduct];
+            \Mail::to($email)->send(new paymentMail($data));
             Session::forget('discount');
             $amount = Auth::user()->amount;
             if($amount<$total){
@@ -101,6 +105,8 @@ class OrderController extends Controller
             $orders->save();
             }
         }else{
+            $data =['name'=>$name,'address'=>$address,'type'=>$type,'total'=>$total,'product'=>$arrayProduct];
+            \Mail::to($email)->send(new paymentMail($data));
             Session::forget('discount');
             //Trừ số lượng sản phẩm
             foreach ($carts as $cart) {

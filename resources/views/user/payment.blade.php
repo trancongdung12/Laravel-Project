@@ -20,7 +20,10 @@
                 <label for="">Số điện thoại <span style="color: red">*</span></label>
                 <input name="phone" value="@if(isset($profiles)){{$profiles->phone}}@endif" type="text" required>
                 </div>
-
+                <div class="form-item">
+                    <label for="">Email <span style="color: red">*</span></label>
+                    <input name="email" value="" type="text" required>
+                    </div>
                 <div class="form-item">
                     <label for="">Ghi chú (tùy chọn)</label>
                     <textarea name="note" id="" cols="30" rows="3"></textarea>

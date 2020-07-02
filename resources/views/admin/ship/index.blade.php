@@ -16,11 +16,11 @@
 <body>
 <div class="page-container" style="margin-top: 15px;">
     <div class="container" style="background-color: white;height: 800px">
-        <h1>Ship order
-            <form action="/home/logout" method="get">
-                <button class="btn btn-danger">Log out</button>
-            </form>
-        </h1>
+        <h1>Ship order</h1>
+        <h2>Hello {{Auth::user()->name}}</h2>
+        <form action="/home/logout" method="get">
+            <button class="btn btn-danger">Log out</button>
+        </form>
         <hr>
         <table class="table">
             <thead class="thead-dark">

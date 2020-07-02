@@ -90,4 +90,8 @@ Route::prefix('export')->group(function () {
     Route::get('excel','ExportController@excel');
     Route::get('pdf','ExportController@pdf');
 });
+Route::get('/email', function () {
+    return view('mail.payment');
+});
+
 

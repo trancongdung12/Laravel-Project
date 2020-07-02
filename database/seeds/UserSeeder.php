@@ -28,7 +28,14 @@ class UserSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'name' => $faker->name,
-            'username' => 'ship',
+            'username' => 'ship1',
+            'password' => Hash::make('123'),
+            'role'=> 'shipper',
+            'amount' => 0,
+        ]);
+        DB::table('users')->insert([
+            'name' => $faker->name,
+            'username' => 'ship2',
             'password' => Hash::make('123'),
             'role'=> 'shipper',
             'amount' => 0,
